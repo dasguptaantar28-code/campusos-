@@ -10,6 +10,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.campusos.app.data.CampusSupabaseClient
 import com.campusos.app.data.EffectiveConfig
+import com.campusos.app.data.SchoolDataRepository
 import com.campusos.app.ui.screens.*
 import com.campusos.app.ui.theme.CampusTheme
 import kotlinx.coroutines.delay
@@ -69,17 +70,16 @@ class MainActivity : ComponentActivity() {
                             val dest = when {
                                 client.accessToken != null && client.selectedTenantId != null -> "/dashboard"
                                 client.accessToken != null -> "tenants"
-                                else -> "onboarding"
+                                else -> "login"
                             }
                             if (client.selectedTenantId != null) triggerSync(client.selectedTenantId)
                             navController.navigate(dest) { popUpTo("splash") { inclusive = true } }
                         }
                     }
                     composable("onboarding") {
-                        OnboardingScreen(
-                            onLogin = { portal -> navController.navigate("login/$portal") },
-                            onRegister = { role -> navController.navigate("register/$role") }
-                        )
+                        LaunchedEffect(Unit) {
+                            navController.navigate("login") { popUpTo("onboarding") { inclusive = true } }
+                        }
                     }
                     composable("login") {
                         LoginScreen(
@@ -154,8 +154,14 @@ class MainActivity : ComponentActivity() {
                             client = client,
                             onSelectTenant = { tid ->
                                 client.selectedTenantId = tid
+                                SchoolDataRepository.switchInstitution(tid)
                                 triggerSync(tid)
                                 navController.navigate("/dashboard") { popUpTo("tenants") { inclusive = true } }
+                            },
+                            onBack = {
+                                if (!navController.popBackStack()) {
+                                    navController.navigate("/dashboard")
+                                }
                             },
                             onSignOut = {
                                 client.signOut()

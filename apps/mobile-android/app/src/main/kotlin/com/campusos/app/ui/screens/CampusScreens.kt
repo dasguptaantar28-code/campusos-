@@ -1,6 +1,7 @@
 package com.campusos.app.ui.screens
 
 import androidx.compose.animation.*
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -18,6 +19,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -3893,79 +3895,219 @@ fun CircleAvatarBox(
 fun TenantSelectionScreen(
     client: CampusSupabaseClient,
     onSelectTenant: (String) -> Unit,
+    onBack: () -> Unit = {},
     onSignOut: () -> Unit
 ) {
-    val scope = rememberCoroutineScope()
-    var tenants by remember { mutableStateOf<List<TenantSummary>>(emptyList()) }
-    var loading by remember { mutableStateOf(true) }
+    val institutions = SchoolDataRepository.institutions
+    val currentInstId = SchoolDataRepository.currentInstitutionId
 
-    LaunchedEffect(Unit) {
-        loading = true
-        tenants = client.fetchMemberships()
-        loading = false
-    }
-
-    Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(CampusColors.LightBackground)
+            .padding(16.dp)
+    ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text("Select Institution", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
-            IconButton(onClick = onSignOut) { Icon(Icons.Rounded.Logout, contentDescription = "Sign Out") }
-        }
-        Spacer(Modifier.height(12.dp))
-        if (loading) {
-            Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
-        } else if (tenants.isEmpty()) {
-            Column(
-                modifier = Modifier.fillMaxSize().padding(24.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                Icon(Icons.Rounded.School, contentDescription = null, modifier = Modifier.size(56.dp), tint = CampusColors.PrimaryDark)
-                Spacer(Modifier.height(16.dp))
-                Text("Select Campus Institution", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
-                Spacer(Modifier.height(8.dp))
-                Text(
-                    "Enter Green Valley School or configure a custom institution tenant.",
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                Spacer(Modifier.height(24.dp))
-                Button(
-                    onClick = {
-                        client.selectedTenantId = "11111111-1111-4111-8111-111111111111"
-                        onSelectTenant("11111111-1111-4111-8111-111111111111")
-                    },
-                    modifier = Modifier.fillMaxWidth().height(48.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = CampusColors.PrimaryDark)
-                ) {
-                    Text("Enter Campus (Green Valley School)")
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                IconButton(onClick = onBack) {
+                    Icon(Icons.AutoMirrored.Rounded.ArrowBack, contentDescription = "Back", tint = CampusColors.PrimaryDark)
+                }
+                Spacer(Modifier.width(4.dp))
+                Column {
+                    Text("Select Campus Institution", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.ExtraBold, color = CampusColors.PrimaryDark)
+                    Text("3 Integrated Campuses • 1,280 Total Students", fontSize = 11.sp, color = Color.Gray)
                 }
             }
-        } else {
-            LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                items(tenants) { t ->
-                    Card(modifier = Modifier.fillMaxWidth().clickable { onSelectTenant(t.tenantId) }) {
+            IconButton(onClick = onSignOut) {
+                Icon(Icons.Rounded.Logout, contentDescription = "Sign Out", tint = Color(0xFFDC2626))
+            }
+        }
+
+        Spacer(Modifier.height(14.dp))
+
+        // Hero Instruction Card
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            colors = CardDefaults.cardColors(containerColor = CampusColors.PrimaryDark),
+            shape = RoundedCornerShape(16.dp)
+        ) {
+            Row(
+                modifier = Modifier.padding(16.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(42.dp)
+                        .clip(CircleShape)
+                        .background(CampusColors.AccentGoldLight.copy(alpha = 0.2f)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(Icons.Rounded.SwapHoriz, contentDescription = null, tint = CampusColors.AccentGoldLight, modifier = Modifier.size(24.dp))
+                }
+                Spacer(Modifier.width(12.dp))
+                Column {
+                    Text(
+                        "Multi-Campus Unified Platform",
+                        color = Color.White,
+                        fontWeight = FontWeight.ExtraBold,
+                        fontSize = 14.sp
+                    )
+                    Text(
+                        "Select any institution below to switch students, routines, examinations, and faculty console.",
+                        color = Color.White.copy(alpha = 0.8f),
+                        fontSize = 11.sp
+                    )
+                }
+            }
+        }
+
+        Spacer(Modifier.height(14.dp))
+
+        LazyColumn(
+            modifier = Modifier.weight(1f),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            items(institutions) { inst ->
+                val isActive = inst.id == currentInstId
+                val instIcon = when (inst.type.lowercase()) {
+                    "college" -> Icons.Rounded.School
+                    "university" -> Icons.Rounded.AccountBalance
+                    else -> Icons.Rounded.LocationCity
+                }
+                val badgeColor = when (inst.type.lowercase()) {
+                    "college" -> Color(0xFF7C3AED)
+                    "university" -> Color(0xFF2563EB)
+                    else -> Color(0xFF0F766E)
+                }
+
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable {
+                            SchoolDataRepository.switchInstitution(inst.id)
+                            client.selectedTenantId = inst.id
+                            onSelectTenant(inst.id)
+                        },
+                    shape = RoundedCornerShape(16.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = if (isActive) Color(0xFFF0FDF4) else Color.White
+                    ),
+                    border = BorderStroke(
+                        width = if (isActive) 2.dp else 1.dp,
+                        color = if (isActive) Color(0xFF16A34A) else Color(0xFFE2E8F0)
+                    )
+                ) {
+                    Column(Modifier.padding(16.dp)) {
                         Row(
-                            modifier = Modifier.padding(16.dp),
+                            modifier = Modifier.fillMaxWidth(),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Icon(Icons.Rounded.School, contentDescription = null, tint = CampusColors.PrimaryDark)
+                            Box(
+                                modifier = Modifier
+                                    .size(46.dp)
+                                    .clip(RoundedCornerShape(12.dp))
+                                    .background(badgeColor.copy(alpha = 0.12f)),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Icon(instIcon, contentDescription = null, tint = badgeColor, modifier = Modifier.size(26.dp))
+                            }
                             Spacer(Modifier.width(12.dp))
                             Column(Modifier.weight(1f)) {
-                                Text(t.tenantName, fontWeight = FontWeight.Bold)
-                                Text("${t.roleName} • ${t.tenantStatus.uppercase()}", fontSize = 12.sp)
+                                Text(
+                                    inst.name,
+                                    fontWeight = FontWeight.ExtraBold,
+                                    fontSize = 15.sp,
+                                    color = Color(0xFF1E293B)
+                                )
+                                Spacer(Modifier.height(2.dp))
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                                ) {
+                                    Box(
+                                        modifier = Modifier
+                                            .clip(RoundedCornerShape(6.dp))
+                                            .background(badgeColor)
+                                            .padding(horizontal = 6.dp, vertical = 2.dp)
+                                    ) {
+                                        Text(inst.type.uppercase(), color = Color.White, fontSize = 9.sp, fontWeight = FontWeight.Bold)
+                                    }
+                                    Text("•", color = Color.Gray, fontSize = 10.sp)
+                                    Text(inst.code, fontSize = 11.sp, fontWeight = FontWeight.SemiBold, color = Color.DarkGray)
+                                }
                             }
-                            Icon(Icons.Rounded.ChevronRight, contentDescription = null)
+                            if (isActive) {
+                                Box(
+                                    modifier = Modifier
+                                        .clip(RoundedCornerShape(20.dp))
+                                        .background(Color(0xFFDCFCE7))
+                                        .padding(horizontal = 10.dp, vertical = 4.dp)
+                                ) {
+                                    Text("Active 🟢", color = Color(0xFF16A34A), fontSize = 11.sp, fontWeight = FontWeight.ExtraBold)
+                                }
+                            }
+                        }
+
+                        Spacer(Modifier.height(12.dp))
+                        HorizontalDivider(color = Color(0xFFF1F5F9))
+                        Spacer(Modifier.height(10.dp))
+
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                inst.tagline,
+                                fontSize = 11.sp,
+                                color = Color(0xFF64748B),
+                                fontWeight = FontWeight.Medium
+                            )
+                            Button(
+                                onClick = {
+                                    SchoolDataRepository.switchInstitution(inst.id)
+                                    client.selectedTenantId = inst.id
+                                    onSelectTenant(inst.id)
+                                },
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = if (isActive) Color(0xFF16A34A) else CampusColors.PrimaryDark
+                                ),
+                                shape = RoundedCornerShape(8.dp),
+                                contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp)
+                            ) {
+                                Text(
+                                    if (isActive) "Current Campus ✓" else "Switch to Campus ➔",
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
                         }
                     }
                 }
             }
         }
 
+        Spacer(Modifier.height(12.dp))
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                "Created by Antar Dasgupta",
+                fontSize = 11.sp,
+                fontWeight = FontWeight.Bold,
+                color = CampusColors.PrimaryDark
+            )
+            Text(
+                "© 2026 Antar Dasgupta. All Rights Reserved.",
+                fontSize = 10.sp,
+                color = Color.Gray
+            )
+        }
     }
 }
 
@@ -4004,23 +4146,91 @@ fun CampusWorkspaceScaffold(
                     Text("Role: ${config.role.uppercase()} • v${config.version}", color = CampusColors.AccentGoldLight, fontSize = 12.sp)
                 }
                 LazyColumn(modifier = Modifier.weight(1f).padding(vertical = 8.dp)) {
-                    items(config.navigation) { nav ->
-                        val target = mapNavRoute(nav)
+                    item {
                         NavigationDrawerItem(
-                            icon = { Icon(resolveIcon(nav.icon), contentDescription = null) },
-                            label = { Text(nav.label) },
-                            selected = currentRoute == target,
+                            icon = { Icon(Icons.Rounded.Dashboard, contentDescription = null) },
+                            label = { Text("Campus Dashboard", fontWeight = FontWeight.Bold) },
+                            selected = currentRoute == "/dashboard",
                             onClick = {
                                 scope.launch { drawerState.close() }
-                                onNavigate(target)
+                                onNavigate("/dashboard")
+                            }
+                        )
+                        Spacer(Modifier.height(12.dp))
+                        Text(
+                            "   SWITCH INSTITUTION (3 CAMPUSES)",
+                            fontSize = 10.sp,
+                            fontWeight = FontWeight.ExtraBold,
+                            color = CampusColors.PrimaryDark
+                        )
+                        Spacer(Modifier.height(4.dp))
+                    }
+                    items(SchoolDataRepository.institutions) { inst ->
+                        val isCurr = inst.id == SchoolDataRepository.currentInstitutionId
+                        val instIcon = when (inst.type.lowercase()) {
+                            "college" -> Icons.Rounded.School
+                            "university" -> Icons.Rounded.AccountBalance
+                            else -> Icons.Rounded.LocationCity
+                        }
+                        NavigationDrawerItem(
+                            icon = {
+                                Icon(
+                                    instIcon,
+                                    contentDescription = null,
+                                    tint = if (isCurr) Color(0xFF16A34A) else Color.Gray
+                                )
+                            },
+                            label = {
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Text(
+                                        inst.name,
+                                        maxLines = 1,
+                                        overflow = TextOverflow.Ellipsis,
+                                        modifier = Modifier.weight(1f),
+                                        fontSize = 12.sp,
+                                        fontWeight = if (isCurr) FontWeight.Bold else FontWeight.Normal
+                                    )
+                                    if (isCurr) {
+                                        Text(" Active 🟢", fontSize = 10.sp, fontWeight = FontWeight.ExtraBold, color = Color(0xFF16A34A))
+                                    }
+                                }
+                            },
+                            selected = isCurr,
+                            onClick = {
+                                SchoolDataRepository.switchInstitution(inst.id)
+                                scope.launch { drawerState.close() }
+                                onSwitchTenant()
                             }
                         )
                     }
+                    if (config.navigation.isNotEmpty()) {
+                        item {
+                            Spacer(Modifier.height(8.dp))
+                            HorizontalDivider()
+                            Spacer(Modifier.height(4.dp))
+                        }
+                        items(config.navigation) { nav ->
+                            val target = mapNavRoute(nav)
+                            NavigationDrawerItem(
+                                icon = { Icon(resolveIcon(nav.icon), contentDescription = null) },
+                                label = { Text(nav.label) },
+                                selected = currentRoute == target,
+                                onClick = {
+                                    scope.launch { drawerState.close() }
+                                    onNavigate(target)
+                                }
+                            )
+                        }
+                    }
                 }
-                Divider()
+                HorizontalDivider()
                 NavigationDrawerItem(
                     icon = { Icon(Icons.Rounded.SwapHoriz, contentDescription = null) },
-                    label = { Text("Switch Institution") },
+                    label = { Text("All Institutions Screen 🏢", fontWeight = FontWeight.Bold) },
                     selected = false,
                     onClick = {
                         scope.launch { drawerState.close() }
