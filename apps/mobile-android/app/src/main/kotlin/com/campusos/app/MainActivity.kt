@@ -76,6 +76,34 @@ class MainActivity : ComponentActivity() {
                             navController.navigate(dest) { popUpTo("splash") { inclusive = true } }
                         }
                     }
+                    val applyPortalSession: (String) -> Unit = { portal ->
+                        val r = if (portal == "guardian") "parent" else portal
+                        val isAdmin = (r == "admin" || r == "super_admin")
+                        val email = (client.userEmail ?: "").lowercase()
+
+                        val targetInstId = when {
+                            isAdmin -> SchoolDataRepository.currentInstitutionId
+                            email.contains("college") -> "inst-college"
+                            email.contains("varsity") || email.contains("uni") -> "inst-university"
+                            r == "student" -> {
+                                val s = SchoolDataRepository.getStudentByEmail(email)
+                                s?.institutionId ?: "inst-school"
+                            }
+                            r == "parent" -> {
+                                val ch = SchoolDataRepository.getChildrenForGuardian(email)
+                                ch.firstOrNull()?.institutionId ?: "inst-school"
+                            }
+                            else -> "inst-school"
+                        }
+                        SchoolDataRepository.switchInstitution(targetInstId)
+                        client.selectedTenantId = targetInstId
+                        config = config.copy(
+                            role = r,
+                            isPlatformAdmin = isAdmin,
+                            tenantName = SchoolDataRepository.currentInstitution.name
+                        )
+                    }
+
                     composable("onboarding") {
                         LaunchedEffect(Unit) {
                             navController.navigate("login") { popUpTo("onboarding") { inclusive = true } }
@@ -86,18 +114,12 @@ class MainActivity : ComponentActivity() {
                             client = client,
                             initialPortal = "student",
                             onSignedIn = { portal ->
-                                val r = if (portal == "guardian") "parent" else portal
-                                val isAdmin = (r == "admin" || r == "super_admin")
-                                config = config.copy(role = r, isPlatformAdmin = isAdmin)
-                                client.selectedTenantId = "11111111-1111-4111-8111-111111111111"
+                                applyPortalSession(portal)
                                 navController.navigate("/dashboard") { popUpTo("login") { inclusive = true } }
                             },
                             onRegister = { role -> navController.navigate("register/$role") },
                             onOfflinePreview = { portal ->
-                                val r = if (portal == "guardian") "parent" else portal
-                                val isAdmin = (r == "admin" || r == "super_admin")
-                                config = config.copy(role = r, isPlatformAdmin = isAdmin)
-                                client.selectedTenantId = "11111111-1111-4111-8111-111111111111"
+                                applyPortalSession(portal)
                                 navController.navigate("/dashboard")
                             }
                         )
@@ -108,18 +130,12 @@ class MainActivity : ComponentActivity() {
                             client = client,
                             initialPortal = p,
                             onSignedIn = { portal ->
-                                val r = if (portal == "guardian") "parent" else portal
-                                val isAdmin = (r == "admin" || r == "super_admin")
-                                config = config.copy(role = r, isPlatformAdmin = isAdmin)
-                                client.selectedTenantId = "11111111-1111-4111-8111-111111111111"
+                                applyPortalSession(portal)
                                 navController.navigate("/dashboard") { popUpTo("onboarding") { inclusive = true } }
                             },
                             onRegister = { role -> navController.navigate("register/$role") },
                             onOfflinePreview = { portal ->
-                                val r = if (portal == "guardian") "parent" else portal
-                                val isAdmin = (r == "admin" || r == "super_admin")
-                                config = config.copy(role = r, isPlatformAdmin = isAdmin)
-                                client.selectedTenantId = "11111111-1111-4111-8111-111111111111"
+                                applyPortalSession(portal)
                                 navController.navigate("/dashboard")
                             }
                         )
@@ -129,8 +145,7 @@ class MainActivity : ComponentActivity() {
                             client = client,
                             initialRole = "student",
                             onDone = {
-                                client.selectedTenantId = "11111111-1111-4111-8111-111111111111"
-                                config = config.copy(role = "student", isPlatformAdmin = false)
+                                applyPortalSession("student")
                                 navController.navigate("/dashboard") { popUpTo("login") { inclusive = true } }
                             },
                             onBack = { navController.popBackStack() }
@@ -142,32 +157,39 @@ class MainActivity : ComponentActivity() {
                             client = client,
                             initialRole = role,
                             onDone = {
-                                client.selectedTenantId = "11111111-1111-4111-8111-111111111111"
-                                config = config.copy(role = role, isPlatformAdmin = false)
+                                applyPortalSession(role)
                                 navController.navigate("/dashboard") { popUpTo("login") { inclusive = true } }
                             },
                             onBack = { navController.popBackStack() }
                         )
                     }
                     composable("tenants") {
-                        TenantSelectionScreen(
-                            client = client,
-                            onSelectTenant = { tid ->
-                                client.selectedTenantId = tid
-                                SchoolDataRepository.switchInstitution(tid)
-                                triggerSync(tid)
+                        val isSuperAdmin = (config.role == "super_admin" || config.role == "admin" || config.isPlatformAdmin)
+                        if (!isSuperAdmin) {
+                            LaunchedEffect(Unit) {
                                 navController.navigate("/dashboard") { popUpTo("tenants") { inclusive = true } }
-                            },
-                            onBack = {
-                                if (!navController.popBackStack()) {
-                                    navController.navigate("/dashboard")
-                                }
-                            },
-                            onSignOut = {
-                                client.signOut()
-                                navController.navigate("login") { popUpTo(0) }
                             }
-                        )
+                        } else {
+                            TenantSelectionScreen(
+                                client = client,
+                                onSelectTenant = { tid ->
+                                    client.selectedTenantId = tid
+                                    SchoolDataRepository.switchInstitution(tid)
+                                    config = config.copy(tenantName = SchoolDataRepository.currentInstitution.name)
+                                    triggerSync(tid)
+                                    navController.navigate("/dashboard") { popUpTo("tenants") { inclusive = true } }
+                                },
+                                onBack = {
+                                    if (!navController.popBackStack()) {
+                                        navController.navigate("/dashboard")
+                                    }
+                                },
+                                onSignOut = {
+                                    client.signOut()
+                                    navController.navigate("login") { popUpTo(0) }
+                                }
+                            )
+                        }
                     }
 
                     val workspaceNavigate: (String) -> Unit = { rawRoute ->
@@ -197,6 +219,11 @@ class MainActivity : ComponentActivity() {
                         client.signOut()
                         navController.navigate("login") { popUpTo(0) }
                     }
+                    val safeSwitchTenant: () -> Unit = {
+                        if (config.role == "super_admin" || config.role == "admin" || config.isPlatformAdmin) {
+                            navController.navigate("tenants")
+                        }
+                    }
 
                     composable("/dashboard") {
                         CampusWorkspaceScaffold(
@@ -205,14 +232,14 @@ class MainActivity : ComponentActivity() {
                             syncing = syncing,
                             onNavigate = workspaceNavigate,
                             onSync = { triggerSync() },
-                            onSwitchTenant = { navController.navigate("tenants") },
+                            onSwitchTenant = safeSwitchTenant,
                             onSignOut = workspaceSignOut
                         ) { _ ->
                             DashboardScreen(
                                 client = client,
                                 config = config,
                                 onNavigate = workspaceNavigate,
-                                onSwitchTenant = { navController.navigate("tenants") },
+                                onSwitchTenant = safeSwitchTenant,
                                 onSignOut = workspaceSignOut
                             )
                         }

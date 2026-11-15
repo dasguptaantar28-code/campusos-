@@ -1894,8 +1894,8 @@ fun TeacherDashboardScreen(
                     Spacer(Modifier.width(14.dp))
                     Column(Modifier.weight(1f)) {
                         Text("Prof. Kabir Ahmed", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.ExtraBold)
-                        Text("Faculty of Science & Mathematics • Green Valley School", fontSize = 11.sp, color = Color.Gray)
-                        Text("Global Academic Scope: Class 1 to Class 10 (All Sections)", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = CampusColors.PrimaryDark)
+                        Text("Faculty of Science & Mathematics • ${SchoolDataRepository.currentInstitution.name}", fontSize = 11.sp, color = Color.Gray)
+                        Text("Assigned Scope: ${SchoolDataRepository.currentInstitution.classList.first()} to ${SchoolDataRepository.currentInstitution.classList.last()} (All Sections)", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = CampusColors.PrimaryDark)
                     }
                     IconButton(onClick = onSignOut) {
                         Icon(Icons.Rounded.ExitToApp, contentDescription = "Log Out", tint = CampusColors.PrimaryDark)
@@ -1904,29 +1904,37 @@ fun TeacherDashboardScreen(
             }
         }
 
-        // INSTITUTION SWITCHER ROW
+        // Current Assigned Institution (Strictly Scoped for Teacher - No Switching)
         item {
-            Column {
-                Text("Select Institution Campus", fontWeight = FontWeight.ExtraBold, fontSize = 13.sp, color = Color.Black)
-                Spacer(Modifier.height(8.dp))
-                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    SchoolDataRepository.institutions.forEach { inst ->
-                        val isSelected = SchoolDataRepository.currentInstitutionId == inst.id
-                        FilterChip(
-                            selected = isSelected,
-                            onClick = {
-                                SchoolDataRepository.switchInstitution(inst.id)
-                                selectedClass = inst.classList.first()
-                                selectedSection = inst.sectionList.first()
-                                searchQuery = ""
-                            },
-                            label = { Text("${inst.iconEmoji} ${inst.shortName}", fontWeight = FontWeight.Bold, fontSize = 11.sp) },
-                            modifier = Modifier.weight(1f),
-                            colors = FilterChipDefaults.filterChipColors(
-                                selectedContainerColor = CampusColors.PrimaryDark,
-                                selectedLabelColor = Color.White
-                            )
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                colors = CardDefaults.cardColors(containerColor = CampusColors.PrimaryDark),
+                shape = RoundedCornerShape(16.dp)
+            ) {
+                Row(
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(Icons.Rounded.LocationCity, contentDescription = null, tint = CampusColors.AccentGoldLight, modifier = Modifier.size(22.dp))
+                    Spacer(Modifier.width(12.dp))
+                    Column(Modifier.weight(1f)) {
+                        Text("Assigned Institution Campus", fontSize = 10.sp, color = Color.White.copy(alpha = 0.8f))
+                        Text(
+                            SchoolDataRepository.currentInstitution.name,
+                            fontSize = 13.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
                         )
+                    }
+                    Box(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(8.dp))
+                            .background(Color(0xFF16A34A).copy(alpha = 0.35f))
+                            .padding(horizontal = 8.dp, vertical = 4.dp)
+                    ) {
+                        Text("Active 🟢", fontSize = 10.sp, fontWeight = FontWeight.ExtraBold, color = CampusColors.AccentGoldLight)
                     }
                 }
             }
@@ -4125,6 +4133,7 @@ fun CampusWorkspaceScaffold(
 ) {
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val scope = rememberCoroutineScope()
+    val isSuperAdmin = config.role == "super_admin" || config.role == "admin" || config.isPlatformAdmin
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -4133,7 +4142,7 @@ fun CampusWorkspaceScaffold(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(if (config.role == "super_admin" || config.role == "admin" || config.isPlatformAdmin) CampusColors.SuperAdminDark else CampusColors.PrimaryDark)
+                        .background(if (isSuperAdmin) CampusColors.SuperAdminDark else CampusColors.PrimaryDark)
                         .padding(20.dp)
                 ) {
                     Image(
@@ -4156,56 +4165,94 @@ fun CampusWorkspaceScaffold(
                                 onNavigate("/dashboard")
                             }
                         )
-                        Spacer(Modifier.height(12.dp))
-                        Text(
-                            "   SWITCH INSTITUTION (3 CAMPUSES)",
-                            fontSize = 10.sp,
-                            fontWeight = FontWeight.ExtraBold,
-                            color = CampusColors.PrimaryDark
-                        )
-                        Spacer(Modifier.height(4.dp))
                     }
-                    items(SchoolDataRepository.institutions) { inst ->
-                        val isCurr = inst.id == SchoolDataRepository.currentInstitutionId
-                        val instIcon = when (inst.type.lowercase()) {
-                            "college" -> Icons.Rounded.School
-                            "university" -> Icons.Rounded.AccountBalance
-                            else -> Icons.Rounded.LocationCity
+                    if (isSuperAdmin) {
+                        item {
+                            Spacer(Modifier.height(12.dp))
+                            Text(
+                                "   SWITCH INSTITUTION (3 CAMPUSES)",
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.ExtraBold,
+                                color = CampusColors.PrimaryDark
+                            )
+                            Spacer(Modifier.height(4.dp))
                         }
-                        NavigationDrawerItem(
-                            icon = {
-                                Icon(
-                                    instIcon,
-                                    contentDescription = null,
-                                    tint = if (isCurr) Color(0xFF16A34A) else Color.Gray
-                                )
-                            },
-                            label = {
+                        items(SchoolDataRepository.institutions) { inst ->
+                            val isCurr = inst.id == SchoolDataRepository.currentInstitutionId
+                            val instIcon = when (inst.type.lowercase()) {
+                                "college" -> Icons.Rounded.School
+                                "university" -> Icons.Rounded.AccountBalance
+                                else -> Icons.Rounded.LocationCity
+                            }
+                            NavigationDrawerItem(
+                                icon = {
+                                    Icon(
+                                        instIcon,
+                                        contentDescription = null,
+                                        tint = if (isCurr) Color(0xFF16A34A) else Color.Gray
+                                    )
+                                },
+                                label = {
+                                    Row(
+                                        modifier = Modifier.fillMaxWidth(),
+                                        horizontalArrangement = Arrangement.SpaceBetween,
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        Text(
+                                            inst.name,
+                                            maxLines = 1,
+                                            overflow = TextOverflow.Ellipsis,
+                                            modifier = Modifier.weight(1f),
+                                            fontSize = 12.sp,
+                                            fontWeight = if (isCurr) FontWeight.Bold else FontWeight.Normal
+                                        )
+                                        if (isCurr) {
+                                            Text(" Active 🟢", fontSize = 10.sp, fontWeight = FontWeight.ExtraBold, color = Color(0xFF16A34A))
+                                        }
+                                    }
+                                },
+                                selected = isCurr,
+                                onClick = {
+                                    SchoolDataRepository.switchInstitution(inst.id)
+                                    scope.launch { drawerState.close() }
+                                    onSwitchTenant()
+                                }
+                            )
+                        }
+                    } else {
+                        item {
+                            Spacer(Modifier.height(8.dp))
+                            Card(
+                                modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp),
+                                colors = CardDefaults.cardColors(containerColor = CampusColors.PrimaryContainer.copy(alpha = 0.6f)),
+                                shape = RoundedCornerShape(12.dp)
+                            ) {
                                 Row(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    modifier = Modifier.padding(10.dp),
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
-                                    Text(
-                                        inst.name,
-                                        maxLines = 1,
-                                        overflow = TextOverflow.Ellipsis,
-                                        modifier = Modifier.weight(1f),
-                                        fontSize = 12.sp,
-                                        fontWeight = if (isCurr) FontWeight.Bold else FontWeight.Normal
-                                    )
-                                    if (isCurr) {
-                                        Text(" Active 🟢", fontSize = 10.sp, fontWeight = FontWeight.ExtraBold, color = Color(0xFF16A34A))
+                                    Icon(Icons.Rounded.LocationCity, contentDescription = null, tint = CampusColors.PrimaryDark, modifier = Modifier.size(18.dp))
+                                    Spacer(Modifier.width(8.dp))
+                                    Column {
+                                        Text(
+                                            if (config.role == "teacher") "Assigned Institution" else "Enrolled Institution",
+                                            fontSize = 9.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            color = CampusColors.PrimaryDark
+                                        )
+                                        Text(
+                                            SchoolDataRepository.currentInstitution.name,
+                                            fontSize = 11.sp,
+                                            fontWeight = FontWeight.ExtraBold,
+                                            color = Color.Black,
+                                            maxLines = 1,
+                                            overflow = TextOverflow.Ellipsis
+                                        )
                                     }
                                 }
-                            },
-                            selected = isCurr,
-                            onClick = {
-                                SchoolDataRepository.switchInstitution(inst.id)
-                                scope.launch { drawerState.close() }
-                                onSwitchTenant()
                             }
-                        )
+                            Spacer(Modifier.height(4.dp))
+                        }
                     }
                     if (config.navigation.isNotEmpty()) {
                         item {
@@ -4227,16 +4274,18 @@ fun CampusWorkspaceScaffold(
                         }
                     }
                 }
-                HorizontalDivider()
-                NavigationDrawerItem(
-                    icon = { Icon(Icons.Rounded.SwapHoriz, contentDescription = null) },
-                    label = { Text("All Institutions Screen 🏢", fontWeight = FontWeight.Bold) },
-                    selected = false,
-                    onClick = {
-                        scope.launch { drawerState.close() }
-                        onSwitchTenant()
-                    }
-                )
+                if (isSuperAdmin) {
+                    HorizontalDivider()
+                    NavigationDrawerItem(
+                        icon = { Icon(Icons.Rounded.SwapHoriz, contentDescription = null) },
+                        label = { Text("All Institutions Screen 🏢", fontWeight = FontWeight.Bold) },
+                        selected = false,
+                        onClick = {
+                            scope.launch { drawerState.close() }
+                            onSwitchTenant()
+                        }
+                    )
+                }
                 NavigationDrawerItem(
                     icon = { Icon(Icons.Rounded.Logout, contentDescription = null, tint = Color(0xFFDC2626)) },
                     label = { Text("Log Out", color = Color(0xFFDC2626), fontWeight = FontWeight.Bold) },
@@ -4254,7 +4303,7 @@ fun CampusWorkspaceScaffold(
             topBar = {
                 TopAppBar(
                     colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = if (config.role == "super_admin" || config.role == "admin" || config.isPlatformAdmin) CampusColors.SuperAdminDark else CampusColors.PrimaryDark,
+                        containerColor = if (isSuperAdmin) CampusColors.SuperAdminDark else CampusColors.PrimaryDark,
                         titleContentColor = Color.White,
                         navigationIconContentColor = Color.White,
                         actionIconContentColor = Color.White
@@ -4284,8 +4333,10 @@ fun CampusWorkspaceScaffold(
                         IconButton(onClick = { onNavigate("/notices") }) {
                             Icon(Icons.Rounded.Notifications, contentDescription = "Notifications")
                         }
-                        IconButton(onClick = onSwitchTenant) {
-                            Icon(Icons.Rounded.SwapHoriz, contentDescription = "Switch")
+                        if (isSuperAdmin) {
+                            IconButton(onClick = onSwitchTenant) {
+                                Icon(Icons.Rounded.SwapHoriz, contentDescription = "Switch")
+                            }
                         }
                         IconButton(onClick = onSignOut) {
                             Icon(Icons.Rounded.Logout, contentDescription = "Log Out", tint = Color.White.copy(alpha = 0.8f))
