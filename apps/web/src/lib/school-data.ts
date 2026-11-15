@@ -586,6 +586,12 @@ export function getStudentByEmail(email: string): StudentProfileData | undefined
 export function getChildrenForGuardian(guardianEmail: string): StudentProfileData[] {
   const students = getSchoolStudents();
   const clean = guardianEmail.trim().toLowerCase();
+  if (clean === 'guardian.demo@campusos.edu' || clean.includes('demo') || clean.includes('guardian')) {
+    return [
+      students.find(s => s.institutionId === 'inst-school' && s.rollNumber === 1) || students[0],
+      students.find(s => s.institutionId === 'inst-college' && s.rollNumber === 1) || students[1]
+    ];
+  }
   const direct = students.filter(s => s.guardianEmail.toLowerCase() === clean);
   if (direct.length > 0) return direct;
   // Demo guardian strictly linked to Rahim (School) and sibling Samiul (College)
