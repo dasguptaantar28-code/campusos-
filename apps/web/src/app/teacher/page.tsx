@@ -23,6 +23,7 @@ import {
 import {
   CLASS_LIST,
   SECTION_LIST,
+  INSTITUTIONS,
   type StudentProfileData,
   type RoutineSlotData,
   type ExaminationRecordData
@@ -30,6 +31,9 @@ import {
 
 export default function TeacherDashboardPage() {
   const router = useRouter();
+
+  const [assignedInstitutionId, setAssignedInstitutionId] = useState('inst-school');
+  const assignedInst = INSTITUTIONS.find(i => i.id === assignedInstitutionId) || INSTITUTIONS[0];
 
   const [selectedClass, setSelectedClass] = useState('Class 10');
   const [selectedSection, setSelectedSection] = useState('Section A');
@@ -41,16 +45,32 @@ export default function TeacherDashboardPage() {
   const [exams, setExams] = useState<ExaminationRecordData[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // Initialize assigned institution from session
+  useEffect(() => {
+    let instId = 'inst-school';
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('campusos_logged_in_email') || localStorage.getItem('mic_logged_in_email');
+      if (stored) {
+        if (stored.includes('college')) instId = 'inst-college';
+        else if (stored.includes('varsity') || stored.includes('uni')) instId = 'inst-university';
+      }
+    }
+    setAssignedInstitutionId(instId);
+    const inst = INSTITUTIONS.find(i => i.id === instId) || INSTITUTIONS[0];
+    setSelectedClass(inst.classList[0] || 'Class 10');
+    setSelectedSection(inst.sectionList[0] || 'Section A');
+  }, []);
+
   // Attendance state for current section
   const [attendanceMap, setAttendanceMap] = useState<Record<string, 'present' | 'absent' | 'late'>>({});
   const [attendanceSaved, setAttendanceSaved] = useState(false);
 
-  // Load students for selected class & section
+  // Load students for selected class & section strictly for assigned institution
   useEffect(() => {
     async function loadData() {
       setLoading(true);
       try {
-        const res = await fetch(`/api/school/students?className=${encodeURIComponent(selectedClass)}&sectionName=${encodeURIComponent(selectedSection)}`);
+        const res = await fetch(`/api/school/students?institutionId=${encodeURIComponent(assignedInstitutionId)}&className=${encodeURIComponent(selectedClass)}&sectionName=${encodeURIComponent(selectedSection)}`);
         const json = await res.json();
         if (json.success && json.students) {
           setStudents(json.students);
@@ -62,15 +82,15 @@ export default function TeacherDashboardPage() {
           setAttendanceMap(initialMap);
         }
 
-        // Fetch routines
-        const rRes = await fetch(`/api/school/routines?className=${encodeURIComponent(selectedClass)}&sectionName=${encodeURIComponent(selectedSection)}`);
+        // Fetch routines strictly for assigned institution
+        const rRes = await fetch(`/api/school/routines?institutionId=${encodeURIComponent(assignedInstitutionId)}&className=${encodeURIComponent(selectedClass)}&sectionName=${encodeURIComponent(selectedSection)}`);
         const rJson = await rRes.json();
         if (rJson.success && rJson.slots) {
           setRoutines(rJson.slots);
         }
 
-        // Fetch exams
-        const eRes = await fetch(`/api/school/exams?className=${encodeURIComponent(selectedClass)}`);
+        // Fetch exams strictly for assigned institution
+        const eRes = await fetch(`/api/school/exams?institutionId=${encodeURIComponent(assignedInstitutionId)}&className=${encodeURIComponent(selectedClass)}`);
         const eJson = await eRes.json();
         if (eJson.success && eJson.exams) {
           setExams(eJson.exams);
@@ -82,7 +102,7 @@ export default function TeacherDashboardPage() {
       }
     }
     loadData();
-  }, [selectedClass, selectedSection]);
+  }, [assignedInstitutionId, selectedClass, selectedSection]);
 
   const handleStatusToggle = (id: string, status: 'present' | 'absent' | 'late') => {
     setAttendanceMap(prev => ({ ...prev, [id]: status }));
@@ -141,7 +161,7 @@ export default function TeacherDashboardPage() {
               Dr. Nusrat Jahan
             </div>
             <div className="text-[11px] text-slate-400 font-mono">
-              Academic Faculty • All Classes (1-10) View Access
+              Faculty • {assignedInst.name}
             </div>
           </div>
           <button
@@ -162,7 +182,7 @@ export default function TeacherDashboardPage() {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
               <span className="inline-block rounded-full bg-emerald-500/20 border border-emerald-400/40 px-3 py-0.5 text-xs font-semibold text-emerald-300 mb-2">
-                Teacher Access: Full Institutional Directory (10 Classes • 40 Sections • 800 Students)
+                🏛️ Assigned Scope: {assignedInst.name} • Locked Faculty Isolation (No Campus Switching Allowed)
               </span>
               <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
                 {selectedClass} • {selectedSection} Roster
@@ -221,7 +241,7 @@ export default function TeacherDashboardPage() {
             <div className="flex items-center gap-2">
               <Filter className="h-4 w-4 text-emerald-500" />
               <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                Select Class (1 to 10)
+                Select Class ({assignedInst.classList.length} Classes Available)
               </span>
             </div>
             <div className="relative w-full sm:w-64">
@@ -238,7 +258,7 @@ export default function TeacherDashboardPage() {
 
           {/* Class Chips */}
           <div className="flex flex-wrap gap-2">
-            {CLASS_LIST.map(c => (
+            {assignedInst.classList.map(c => (
               <button
                 key={c}
                 type="button"
@@ -258,7 +278,7 @@ export default function TeacherDashboardPage() {
           <div className="pt-2 border-t border-slate-100 dark:border-slate-800 flex items-center gap-3">
             <span className="text-xs font-bold text-slate-500 dark:text-slate-400">Section:</span>
             <div className="flex gap-2">
-              {SECTION_LIST.map(s => (
+              {assignedInst.sectionList.map(s => (
                 <button
                   key={s}
                   type="button"

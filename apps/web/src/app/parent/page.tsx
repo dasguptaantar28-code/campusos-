@@ -53,15 +53,15 @@ export default function ParentDashboardPage() {
           setChildren(json.children);
           const currentChild = json.children[0];
 
-          // Fetch routine for child's section
-          const rRes = await fetch(`/api/school/routines?className=${encodeURIComponent(currentChild.className)}&sectionName=${encodeURIComponent(currentChild.sectionName)}`);
+          // Fetch routine for child's section and institution
+          const rRes = await fetch(`/api/school/routines?className=${encodeURIComponent(currentChild.className)}&sectionName=${encodeURIComponent(currentChild.sectionName)}&institutionId=${encodeURIComponent(currentChild.institutionId || 'inst-school')}`);
           const rJson = await rRes.json();
           if (rJson.success && rJson.slots) {
             setRoutines(rJson.slots);
           }
 
-          // Fetch exams for child's class
-          const eRes = await fetch(`/api/school/exams?className=${encodeURIComponent(currentChild.className)}`);
+          // Fetch exams for child's class and institution
+          const eRes = await fetch(`/api/school/exams?className=${encodeURIComponent(currentChild.className)}&institutionId=${encodeURIComponent(currentChild.institutionId || 'inst-school')}`);
           const eJson = await eRes.json();
           if (eJson.success && eJson.exams) {
             setExams(eJson.exams);
@@ -82,11 +82,11 @@ export default function ParentDashboardPage() {
     if (!child) return;
 
     try {
-      const rRes = await fetch(`/api/school/routines?className=${encodeURIComponent(child.className)}&sectionName=${encodeURIComponent(child.sectionName)}`);
+      const rRes = await fetch(`/api/school/routines?className=${encodeURIComponent(child.className)}&sectionName=${encodeURIComponent(child.sectionName)}&institutionId=${encodeURIComponent(child.institutionId || 'inst-school')}`);
       const rJson = await rRes.json();
       if (rJson.success && rJson.slots) setRoutines(rJson.slots);
 
-      const eRes = await fetch(`/api/school/exams?className=${encodeURIComponent(child.className)}`);
+      const eRes = await fetch(`/api/school/exams?className=${encodeURIComponent(child.className)}&institutionId=${encodeURIComponent(child.institutionId || 'inst-school')}`);
       const eJson = await eRes.json();
       if (eJson.success && eJson.exams) setExams(eJson.exams);
     } catch (e) {
@@ -164,21 +164,25 @@ export default function ParentDashboardPage() {
           </div>
           {children.length > 1 && (
             <div className="flex items-center gap-2">
-              <span className="text-[11px] font-semibold">Switch Child:</span>
-              <div className="flex gap-1">
-                {children.map((child, idx) => (
-                  <button
-                    key={child.id}
-                    onClick={() => handleSelectChild(idx)}
-                    className={`px-2.5 py-1 rounded-lg text-xs font-bold transition cursor-pointer ${
-                      selectedChildIndex === idx
-                        ? 'bg-rose-600 text-white'
-                        : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300'
-                    }`}
-                  >
-                    {child.firstName} ({child.className})
-                  </button>
-                ))}
+              <span className="text-[11px] font-semibold">Switch Child (Multi-Campus):</span>
+              <div className="flex gap-1.5">
+                {children.map((child, idx) => {
+                  const campusTag = child.institutionName.includes('College') ? 'College' : child.institutionName.includes('University') ? 'Univ' : 'School';
+                  return (
+                    <button
+                      key={child.id}
+                      onClick={() => handleSelectChild(idx)}
+                      className={`px-3 py-1 rounded-lg text-xs font-bold transition cursor-pointer flex items-center gap-1.5 ${
+                        selectedChildIndex === idx
+                          ? 'bg-rose-600 text-white shadow-sm'
+                          : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
+                      }`}
+                    >
+                      <span>👶 {child.firstName}</span>
+                      <span className="text-[10px] opacity-80 font-mono">({campusTag} • {child.className})</span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           )}
@@ -187,9 +191,14 @@ export default function ParentDashboardPage() {
         {/* Child Profile Banner */}
         <div className="rounded-3xl bg-gradient-to-r from-rose-950 via-slate-900 to-slate-950 text-white p-6 sm:p-8 border border-rose-900/40 shadow-md flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="space-y-2 text-center sm:text-left">
-            <span className="rounded-full bg-rose-500/20 border border-rose-400/40 px-3 py-0.5 text-xs font-semibold text-rose-300">
-              Linked Child Academic Portfolio
-            </span>
+            <div className="flex flex-wrap items-center gap-2 justify-center sm:justify-start">
+              <span className="rounded-full bg-rose-500/20 border border-rose-400/40 px-3 py-0.5 text-xs font-semibold text-rose-300">
+                Linked Child Academic Portfolio
+              </span>
+              <span className="rounded-full bg-emerald-500/20 border border-emerald-400/40 px-2.5 py-0.5 text-[11px] font-bold text-emerald-300 flex items-center gap-1">
+                🏛️ {currentChild.institutionName}
+              </span>
+            </div>
             <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
               {currentChild.fullName}
             </h1>

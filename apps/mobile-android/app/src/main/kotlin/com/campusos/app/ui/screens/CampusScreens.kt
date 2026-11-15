@@ -1005,7 +1005,8 @@ fun StudentHomeTab(
     onSignOut: () -> Unit = {}
 ) {
     val pendingInvoice = invoices.firstOrNull { it.dueAmount > 0 } ?: invoices.first()
-    val todayLectures = SampleCampusData.defaultRoutine["Sunday"] ?: emptyList()
+    val todayLectures = SchoolDataRepository.getRoutineForSection(student.className, student.sectionName, student.institutionId)
+        .filter { it.dayOfWeek.equals("Sunday", ignoreCase = true) }
 
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -1275,7 +1276,7 @@ fun StudentRoutineTab(
     onSelectDay: (String) -> Unit
 ) {
     val days = listOf("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday")
-    val allSlots = SchoolDataRepository.getRoutineForSection(student.className, student.sectionName)
+    val allSlots = SchoolDataRepository.getRoutineForSection(student.className, student.sectionName, student.institutionId)
     val routineSlots = allSlots.filter { it.dayOfWeek.equals(selectedDay, ignoreCase = true) }
 
     LazyColumn(
@@ -1735,7 +1736,7 @@ fun StudentFeesTab(
 // ------------------------------------------
 @Composable
 fun StudentExamsTab(student: StudentProfileData) {
-    val exams = SchoolDataRepository.getExamsForClass(student.className)
+    val exams = SchoolDataRepository.getExamsForClass(student.className, student.institutionId)
 
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -2406,8 +2407,8 @@ fun ParentDashboardScreen(
     val invoices = SchoolDataRepository.getInvoicesForStudent(student)
     val pendingDue = invoices.filter { it.dueAmount > 0 }
     val results = SchoolDataRepository.getResultsForStudent(student)
-    val exams = SchoolDataRepository.getExamsForClass(student.className)
-    val routineSlots = SchoolDataRepository.getRoutineForSection(student.className, student.sectionName)
+    val exams = SchoolDataRepository.getExamsForClass(student.className, student.institutionId)
+    val routineSlots = SchoolDataRepository.getRoutineForSection(student.className, student.sectionName, student.institutionId)
         .filter { it.dayOfWeek.equals(selectedRoutineDay, ignoreCase = true) }
 
     LazyColumn(
@@ -2428,7 +2429,7 @@ fun ParentDashboardScreen(
                     Icon(Icons.Rounded.Shield, contentDescription = null, tint = Color(0xFFB45309), modifier = Modifier.size(16.dp))
                     Spacer(Modifier.width(8.dp))
                     Text(
-                        "Guardian Portal: Strictly Scoped to Your Linked Child (${student.fullName})",
+                        "Guardian Portal: Strictly Scoped to Your Linked Child (${student.fullName} • ${student.institutionName})",
                         fontSize = 11.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color(0xFF92400E)
@@ -2441,15 +2442,23 @@ fun ParentDashboardScreen(
         if (children.size > 1) {
             item {
                 Column {
-                    Text("Select Your Child", fontWeight = FontWeight.ExtraBold, fontSize = 12.sp, color = Color.Black)
+                    Text("Select Your Child (Cross-Institution)", fontWeight = FontWeight.ExtraBold, fontSize = 12.sp, color = Color.Black)
                     Spacer(Modifier.height(6.dp))
                     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         children.forEachIndexed { idx, ch ->
                             val isSel = selectedChildIndex == idx
+                            val campusTag = when (ch.institutionId) {
+                                "inst-college" -> "College"
+                                "inst-university" -> "Univ"
+                                else -> "School"
+                            }
                             FilterChip(
                                 selected = isSel,
-                                onClick = { selectedChildIndex = idx },
-                                label = { Text("👶 ${ch.fullName} (${ch.className})", fontSize = 11.sp, fontWeight = FontWeight.Bold) },
+                                onClick = {
+                                    selectedChildIndex = idx
+                                    SchoolDataRepository.switchInstitution(ch.institutionId)
+                                },
+                                label = { Text("👶 ${ch.fullName} ($campusTag • ${ch.className})", fontSize = 11.sp, fontWeight = FontWeight.Bold) },
                                 modifier = Modifier.weight(1f),
                                 colors = FilterChipDefaults.filterChipColors(
                                     selectedContainerColor = CampusColors.PrimaryDark,

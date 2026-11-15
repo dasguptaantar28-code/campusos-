@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
     const key = `${institutionId} - ${className}`;
 
     const store = getExamsStore();
-    const exams = store[key] || store[className] || Object.values(store)[0] || [];
+    const exams = store[key] || store[className] || [];
 
     return NextResponse.json({
       success: true,

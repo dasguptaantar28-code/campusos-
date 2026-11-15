@@ -629,12 +629,12 @@ object SchoolDataRepository {
 
     fun getRoutineForSection(cName: String, sName: String, instId: String = currentInstitutionId): List<RoutineSlotData> {
         val key = "$instId - $cName - $sName"
-        return routines[key] ?: routines.values.firstOrNull() ?: emptyList()
+        return routines[key] ?: emptyList()
     }
 
     fun getExamsForClass(cName: String, instId: String = currentInstitutionId): List<ExaminationRecordData> {
         val key = "$instId - $cName"
-        return examSchedules[key] ?: examSchedules.values.firstOrNull() ?: emptyList()
+        return examSchedules[key] ?: emptyList()
     }
 
     fun getResultsForStudent(student: StudentProfileData): List<SubjectResultData> {

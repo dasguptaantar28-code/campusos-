@@ -56,15 +56,15 @@ export default function StudentDashboardPage() {
           const s: StudentProfileData = json.student;
           setStudent(s);
 
-          // Fetch routine for their specific class and section
-          const rRes = await fetch(`/api/school/routines?className=${encodeURIComponent(s.className)}&sectionName=${encodeURIComponent(s.sectionName)}`);
+          // Fetch routine for their specific class, section, and enrolled institution
+          const rRes = await fetch(`/api/school/routines?className=${encodeURIComponent(s.className)}&sectionName=${encodeURIComponent(s.sectionName)}&institutionId=${encodeURIComponent(s.institutionId || 'inst-school')}`);
           const rJson = await rRes.json();
           if (rJson.success && rJson.slots) {
             setRoutines(rJson.slots);
           }
 
-          // Fetch exams for their class
-          const eRes = await fetch(`/api/school/exams?className=${encodeURIComponent(s.className)}`);
+          // Fetch exams for their class and enrolled institution
+          const eRes = await fetch(`/api/school/exams?className=${encodeURIComponent(s.className)}&institutionId=${encodeURIComponent(s.institutionId || 'inst-school')}`);
           const eJson = await eRes.json();
           if (eJson.success && eJson.exams) {
             setExams(eJson.exams);

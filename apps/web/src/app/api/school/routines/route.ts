@@ -11,7 +11,7 @@ export async function GET(req: NextRequest) {
     const legacyKey = `${className} - ${sectionName}`;
 
     const store = getRoutinesStore();
-    const slots = store[key] || store[legacyKey] || Object.values(store)[0] || [];
+    const slots = store[key] || store[legacyKey] || [];
 
     return NextResponse.json({
       success: true,
