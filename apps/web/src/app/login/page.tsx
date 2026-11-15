@@ -1,8 +1,7 @@
 'use client';
 
-import React, { Suspense, useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
   Mail,
@@ -12,6 +11,7 @@ import {
   AlertCircle,
   Sparkles,
 } from 'lucide-react';
+import { CampusLogo } from '@/components/brand/campusos-logo';
 
 function LoginForm() {
   const router = useRouter();
@@ -28,13 +28,13 @@ function LoginForm() {
       setEmail('antardasgupta@gmail.com');
       setPassword('password123');
     } else if (initialRole === 'student') {
-      setEmail('student@mic-university.edu.bd');
+      setEmail('student.demo@campusos.edu');
       setPassword('password123');
     } else if (initialRole === 'teacher') {
-      setEmail('teacher@mic-university.edu.bd');
+      setEmail('teacher@campusos.edu');
       setPassword('password123');
     } else if (initialRole === 'parent') {
-      setEmail('parent@mic-university.edu.bd');
+      setEmail('parent@campusos.edu');
       setPassword('password123');
     }
   }, [initialRole]);
@@ -66,7 +66,10 @@ function LoginForm() {
 
       // Store active session in localStorage
       if (typeof window !== 'undefined') {
-        localStorage.setItem('mic_logged_in_email', email.trim().toLowerCase());
+        const cleanEmail = email.trim().toLowerCase();
+        localStorage.setItem('campusos_logged_in_email', cleanEmail);
+        localStorage.setItem('campusos_logged_in_role', data.role || 'student');
+        localStorage.setItem('mic_logged_in_email', cleanEmail);
         localStorage.setItem('mic_logged_in_role', data.role || 'student');
       }
 
@@ -91,17 +94,7 @@ function LoginForm() {
       {/* Top Bar with brand */}
       <header className="border-b border-slate-800 bg-slate-900/60 backdrop-blur px-6 py-4">
         <div className="container mx-auto flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3">
-            <div className="relative h-10 w-32">
-              <Image
-                src="/logo.png"
-                alt="MIC Smart Campus"
-                fill
-                priority
-                className="object-contain"
-              />
-            </div>
-          </Link>
+          <CampusLogo href="/" size="sm" />
           <Link
             href="/"
             className="text-xs font-semibold text-slate-400 hover:text-emerald-400 transition"
@@ -114,15 +107,9 @@ function LoginForm() {
       {/* Main Login Card */}
       <div className="min-h-[80vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-6 p-8 rounded-3xl border shadow-2xl transition-colors duration-200 bg-slate-900 border-slate-800 text-white">
-          <div className="text-center space-y-2">
-            <div className="relative h-14 w-40 mx-auto">
-              <Image
-                src="/logo.png"
-                alt="MIC Smart Campus"
-                fill
-                priority
-                className="object-contain"
-              />
+          <div className="text-center space-y-3">
+            <div className="flex justify-center">
+              <CampusLogo href="/" size="lg" subtitle="Portal Gateway" />
             </div>
             <h2 className="text-2xl font-extrabold tracking-tight text-white">পোর্টাল সাইন ইন</h2>
             <p className="text-xs text-slate-400">
@@ -153,12 +140,12 @@ function LoginForm() {
               <button
                 type="button"
                 onClick={() => {
-                  setEmail('student@mic-university.edu.bd');
+                  setEmail('student.demo@campusos.edu');
                   setPassword('password123');
                 }}
                 className="cursor-pointer rounded-lg px-2.5 py-1 text-xs font-bold transition bg-emerald-950/80 text-emerald-300 border border-emerald-800 hover:bg-emerald-900"
               >
-                🎓 শিক্ষার্থী (সামিউল)
+                🏫 শিক্ষার্থী (স্কুল)
               </button>
               <button
                 type="button"
@@ -166,24 +153,24 @@ function LoginForm() {
                   setEmail('tanvir.student@gmail.com');
                   setPassword('password123');
                 }}
-                className="cursor-pointer rounded-lg px-2.5 py-1 text-xs font-bold transition bg-amber-950/80 text-amber-300 border border-amber-800 hover:bg-amber-900"
+                className="cursor-pointer rounded-lg px-2.5 py-1 text-xs font-bold transition bg-blue-950/80 text-blue-300 border border-blue-800 hover:bg-blue-900"
               >
-                🎓 শিক্ষার্থী (তানভীর)
+                🏛️ শিক্ষার্থী (ভার্সিটি)
               </button>
               <button
                 type="button"
                 onClick={() => {
-                  setEmail('teacher@mic-university.edu.bd');
+                  setEmail('teacher@campusos.edu');
                   setPassword('password123');
                 }}
-                className="cursor-pointer rounded-lg px-2.5 py-1 text-xs font-bold transition bg-blue-950/80 text-blue-300 border border-blue-800 hover:bg-blue-900"
+                className="cursor-pointer rounded-lg px-2.5 py-1 text-xs font-bold transition bg-teal-950/80 text-teal-300 border border-teal-800 hover:bg-teal-900"
               >
                 👨‍🏫 শিক্ষক
               </button>
               <button
                 type="button"
                 onClick={() => {
-                  setEmail('parent@mic-university.edu.bd');
+                  setEmail('parent@campusos.edu');
                   setPassword('password123');
                 }}
                 className="cursor-pointer rounded-lg px-2.5 py-1 text-xs font-bold transition bg-rose-950/80 text-rose-300 border border-rose-800 hover:bg-rose-900"
@@ -211,7 +198,7 @@ function LoginForm() {
                   type="email"
                   required
                   autoComplete="off"
-                  placeholder="আপনার ইমেইল অ্যাড্রেস লিখুন (যেমন: student@mic-university.edu.bd)"
+                  placeholder="আপনার ইমেইল অ্যাড্রেস লিখুন (যেমন: student.demo@campusos.edu)"
                   className="w-full rounded-xl border py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 transition border-slate-700 bg-slate-950 text-white placeholder-slate-500 focus:border-emerald-500"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}

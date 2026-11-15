@@ -5,24 +5,24 @@ export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const email = (searchParams.get('email') || '').trim().toLowerCase();
 
-  // Known hardcoded demo student
-  if (!email || email === 'student@mic-university.edu.bd' || email.includes('samiul')) {
+  // Known demo student (matches APK School Class 10 Sec A Roll 1)
+  if (!email || email === 'student.demo@campusos.edu' || email === 'student@mic-university.edu.bd' || email.includes('samiul') || email.includes('demo')) {
     return NextResponse.json({
       success: true,
       student: {
-        id: 'st-samiul-001',
-        student_id_code: 'MIC-2026-0842',
-        first_name: 'Samiul',
-        last_name: 'Karim',
-        full_name: 'Samiul Karim',
-        email: 'student@mic-university.edu.bd',
-        phone: '+880 1712-345678',
-        institution_name: 'MIC Smart University',
-        class_name: 'Computer Science & Engineering',
-        section_name: 'Section A (3rd Year)',
+        id: 'std-sch-c10a-1',
+        student_id_code: 'COS-2026-C10A-01',
+        first_name: 'Tanvir',
+        last_name: 'Chowdhury',
+        full_name: 'Tanvir Chowdhury',
+        email: 'student.demo@campusos.edu',
+        phone: '+880 1712-311113',
+        institution_name: 'Green Valley Smart Model School',
+        class_name: 'Class 10',
+        section_name: 'Section A',
         status: 'approved',
-        attendance_percentage: 96.2,
-        current_gpa: 3.88,
+        attendance_percentage: 96.0,
+        current_gpa: 5.00,
         blood_group: 'B+',
       },
     });
@@ -41,18 +41,18 @@ export async function GET(req: Request) {
       success: true,
       student: {
         id: matched.id,
-        student_id_code: matched.student_id_code || 'MIC-2026-1049',
+        student_id_code: matched.student_id_code || 'COS-2026-1049',
         first_name: firstName,
         last_name: lastName,
         full_name: matched.full_name,
         email: matched.email,
         phone: matched.phone || '+880 1712-345678',
-        institution_name: matched.institution_name || 'MIC Smart University',
-        class_name: matched.notes?.includes('Program:') ? matched.notes.split('Program:')[1]?.split(',')[0]?.trim() : 'Computer Science & Engineering',
+        institution_name: matched.institution_name || 'Green Valley Smart Model School',
+        class_name: matched.notes?.includes('Program:') ? matched.notes.split('Program:')[1]?.split(',')[0]?.trim() : 'Class 10',
         section_name: 'Section A (Admitted Student)',
         status: matched.status,
         attendance_percentage: 98.5,
-        current_gpa: 3.92,
+        current_gpa: 4.90,
         blood_group: 'A+',
       },
     });
@@ -67,19 +67,19 @@ export async function GET(req: Request) {
     success: true,
     student: {
       id: `st-${Date.now().toString(36)}`,
-      student_id_code: `MIC-2026-${Math.floor(1000 + (email.length * 137) % 8999)}`,
+      student_id_code: `COS-2026-${Math.floor(1000 + (email.length * 137) % 8999)}`,
       first_name: fName,
       last_name: lName,
       full_name: `${fName} ${lName}`,
       email,
       phone: '+880 1712-345678',
-      institution_name: 'MIC Smart University',
-      class_name: 'Computer Science & Engineering',
+      institution_name: 'Green Valley Smart Model School',
+      class_name: 'Class 10',
       section_name: 'Admitted Student Section',
       status: 'approved',
       attendance_percentage: 95.0,
-      current_gpa: 3.85,
-      blood_group: 'O+',
+      current_gpa: 4.80,
+      blood_group: 'B+',
     },
   });
 }

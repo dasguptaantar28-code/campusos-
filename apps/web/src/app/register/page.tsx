@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import { CampusLogo } from '@/components/brand/campusos-logo';
 import { useRouter } from 'next/navigation';
 import {
   GraduationCap,
@@ -27,8 +27,8 @@ export default function RegisterPage() {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [institution, setInstitution] = useState('MIC Smart University');
-  const [program, setProgram] = useState('B.Sc in Computer Science & Engineering (CSE)');
+  const [institution, setInstitution] = useState('Green Valley Smart Model School');
+  const [program, setProgram] = useState('Class 10 - Secondary (SSC)');
   const [dob, setDob] = useState('');
   const [gender, setGender] = useState('male');
   const [guardianName, setGuardianName] = useState('');
@@ -89,7 +89,7 @@ export default function RegisterPage() {
       }
 
       setSuccessData({
-        studentIdCode: data.registration?.student_id_code || 'MIC-2026-1088',
+        studentIdCode: data.registration?.student_id_code || 'COS-2026-1088',
         fullName: fullName.trim(),
         email: email.trim().toLowerCase(),
         institution,
@@ -151,6 +151,8 @@ export default function RegisterPage() {
   const directSignIn = () => {
     if (successData) {
       if (typeof window !== 'undefined') {
+        localStorage.setItem('campusos_logged_in_email', successData.email);
+        localStorage.setItem('campusos_logged_in_role', activeTab === 'student' ? 'student' : 'super_admin');
         localStorage.setItem('mic_logged_in_email', successData.email);
         localStorage.setItem('mic_logged_in_role', activeTab === 'student' ? 'student' : 'super_admin');
       }
@@ -163,17 +165,7 @@ export default function RegisterPage() {
       {/* Header */}
       <header className="border-b border-slate-200 bg-white/95 px-6 py-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/60 backdrop-blur">
         <div className="container mx-auto flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3">
-            <div className="relative h-10 w-32">
-              <Image
-                src="/logo.png"
-                alt="MIC Smart Campus"
-                fill
-                priority
-                className="object-contain dark:brightness-110"
-              />
-            </div>
-          </Link>
+          <CampusLogo href="/" size="sm" />
           <Link
             href="/"
             className="text-xs font-semibold text-slate-500 hover:text-emerald-700 dark:text-slate-400 dark:hover:text-emerald-400 transition"
@@ -187,14 +179,8 @@ export default function RegisterPage() {
       <div className="min-h-[85vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl w-full bg-white dark:bg-slate-900 p-6 sm:p-10 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl space-y-6">
           <div className="text-center space-y-2">
-            <div className="relative h-12 w-36 mx-auto">
-              <Image
-                src="/logo.png"
-                alt="MIC Smart Campus"
-                fill
-                priority
-                className="object-contain dark:brightness-110"
-              />
+            <div className="flex justify-center">
+              <CampusLogo href="/" size="lg" subtitle="Admission Portal" />
             </div>
             <h2 className="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
               Student Admission & Registration
@@ -355,10 +341,9 @@ export default function RegisterPage() {
                         value={institution}
                         onChange={(e) => setInstitution(e.target.value)}
                       >
-                        <option value="MIC Smart University">MIC Smart University (Main Campus, Dhaka)</option>
-                        <option value="MIC Model College">MIC Model College (Dhanmondi Campus)</option>
-                        <option value="MIC International School">MIC International School (Gulshan-2 Campus)</option>
-                        <option value="MIC Polytechnic Institute">MIC Polytechnic & Vocational Institute</option>
+                        <option value="Green Valley Smart Model School">Green Valley Smart Model School (Class 1-10 • School)</option>
+                        <option value="Crescent Model Higher Secondary College">Crescent Model Higher Secondary College (HSC 11 & 12 • College)</option>
+                        <option value="Metropolitan University of Technology & Science">Metropolitan University of Technology & Science (4 Depts • University)</option>
                       </select>
                     </div>
 
@@ -591,8 +576,9 @@ export default function RegisterPage() {
       </div>
 
       {/* Footer bar */}
-      <div className="border-t border-slate-200 dark:border-slate-800 py-4 text-center text-xs text-slate-500">
-        © {new Date().getFullYear()} MIC Smart Campus. Centralized Supabase PostgreSQL Cluster Active.
+      <div className="border-t border-slate-200 dark:border-slate-800 py-4 text-center text-xs text-slate-500 space-y-1">
+        <div className="font-bold text-slate-700 dark:text-slate-300">Created by Antar Dasgupta • Chief Architect &amp; System Creator</div>
+        <div>All Rights Reserved to Antar Dasgupta © {new Date().getFullYear()} Antar Dasgupta. CampusOS Unified Platform.</div>
       </div>
     </div>
   );

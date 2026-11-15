@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import { CampusLogo } from '@/components/brand/campusos-logo';
 import { useRouter } from 'next/navigation';
 import {
   LogOut,
@@ -96,6 +96,8 @@ export default function TeacherDashboardPage() {
 
   const handleSignOut = () => {
     if (typeof window !== 'undefined') {
+      localStorage.removeItem('campusos_logged_in_email');
+      localStorage.removeItem('campusos_logged_in_role');
       localStorage.removeItem('mic_logged_in_email');
       localStorage.removeItem('mic_logged_in_role');
     }
@@ -125,15 +127,7 @@ export default function TeacherDashboardPage() {
       {/* Top Navbar */}
       <header className="bg-slate-900 text-white px-6 py-4 flex items-center justify-between border-b border-slate-800 shadow-sm sticky top-0 z-30">
         <div className="flex items-center gap-3">
-          <Link href="/" className="relative h-10 w-28 brightness-0 invert">
-            <Image
-              src="/logo.png"
-              alt="MIC Smart Campus"
-              fill
-              priority
-              className="object-contain"
-            />
-          </Link>
+          <CampusLogo href="/" darkSurface size="sm" />
           <span className="hidden sm:inline-block h-6 w-px bg-slate-700" />
           <span className="text-xs font-semibold text-emerald-400 hidden sm:inline-block">
             Faculty &amp; Teacher Portal • 360° Academic View

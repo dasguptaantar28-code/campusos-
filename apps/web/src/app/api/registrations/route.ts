@@ -52,7 +52,7 @@ export async function POST(req: Request) {
     const fullName = body.full_name || body.name || '';
     const email = (body.email || '').trim().toLowerCase();
     const phone = body.phone || '';
-    const institutionName = body.institution_name || body.institution || 'MIC Smart University';
+    const institutionName = body.institution_name || body.institution || 'Green Valley Smart Model School';
     const role = (body.role || 'student').toLowerCase() as 'student' | 'teacher' | 'parent';
     const source = body.source || 'web_portal';
     const notes = body.notes || (body.program ? `Program: ${body.program}, Guardian: ${body.guardianName || 'N/A'}` : 'Submitted via Web Portal');

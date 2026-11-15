@@ -34,7 +34,7 @@ export async function POST(req: Request) {
     }
 
     // 2. Demo accounts
-    if (email === 'student@mic-university.edu.bd' && password === 'password123') {
+    if ((email === 'student@campusos.edu' || email === 'student@mic-university.edu.bd') && password === 'password123') {
       return NextResponse.json({
         success: true,
         email,
@@ -42,7 +42,7 @@ export async function POST(req: Request) {
         source: 'verified_store',
       });
     }
-    if (email === 'teacher@mic-university.edu.bd' && password === 'password123') {
+    if ((email === 'teacher@campusos.edu' || email === 'teacher@mic-university.edu.bd') && password === 'password123') {
       return NextResponse.json({
         success: true,
         email,
@@ -50,7 +50,7 @@ export async function POST(req: Request) {
         source: 'verified_store',
       });
     }
-    if (email === 'parent@mic-university.edu.bd' && password === 'password123') {
+    if ((email === 'parent@campusos.edu' || email === 'parent@mic-university.edu.bd') && password === 'password123') {
       return NextResponse.json({
         success: true,
         email,

@@ -69,7 +69,7 @@ export function generateInitialStudents(): StudentProfileData[] {
         const guardianName = `${guardianFirst} ${lastName}`;
         const guardianRel = isGuardianMother ? 'Mother' : 'Father';
 
-        const stdCode = `MIC-2026-C${String(cIndex).padStart(2, '0')}${secLetter}-${String(roll).padStart(2, '0')}`;
+        const stdCode = `COS-2026-C${String(cIndex).padStart(2, '0')}${secLetter}-${String(roll).padStart(2, '0')}`;
         const id = `std-sch-c${cIndex}${secLetter.toLowerCase()}-${roll}`;
 
         const att = 82.0 + ((seed * 7) % 17) + (roll <= 3 ? 2.0 : 0.0);

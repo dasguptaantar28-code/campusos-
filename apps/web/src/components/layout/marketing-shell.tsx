@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import {
   LogIn,
   GraduationCap,
@@ -14,7 +13,9 @@ import {
   Phone,
   Mail,
   Shield,
+  Heart,
 } from 'lucide-react';
+import { CampusLogo } from '@/components/brand/campusos-logo';
 
 export function MarketingShell({ children }: { children: React.ReactNode }) {
   const [isDark, setIsDark] = useState(true);
@@ -23,7 +24,7 @@ export function MarketingShell({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     try {
-      const savedTheme = localStorage.getItem('mic_theme');
+      const savedTheme = localStorage.getItem('campusos_theme');
       if (savedTheme === 'light') {
         setIsDark(false);
         document.documentElement.classList.remove('dark');
@@ -42,11 +43,11 @@ export function MarketingShell({ children }: { children: React.ReactNode }) {
     setIsDark(dark);
     try {
       if (dark) {
-        localStorage.setItem('mic_theme', 'dark');
+        localStorage.setItem('campusos_theme', 'dark');
         document.documentElement.classList.add('dark');
         document.documentElement.classList.remove('light');
       } else {
-        localStorage.setItem('mic_theme', 'light');
+        localStorage.setItem('campusos_theme', 'light');
         document.documentElement.classList.remove('dark');
         document.documentElement.classList.add('light');
       }
@@ -60,17 +61,7 @@ export function MarketingShell({ children }: { children: React.ReactNode }) {
       {/* Header */}
       <header className="sticky top-0 z-50 w-full border-b transition-colors duration-200 border-slate-200 bg-white/95 text-slate-800 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-white/80 dark:border-slate-800 dark:bg-slate-950/90 dark:text-slate-100 dark:supports-[backdrop-filter]:bg-slate-950/80">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative h-11 w-32 rounded-lg p-1 transition-all">
-              <Image
-                src="/logo.png"
-                alt="MIC Smart Campus"
-                fill
-                priority
-                className="object-contain dark:brightness-110"
-              />
-            </div>
-          </Link>
+          <CampusLogo href="/" size="md" />
 
           <nav className="hidden lg:flex items-center gap-7 text-sm font-medium text-slate-600 dark:text-slate-300">
             <Link href="/#features" className="transition hover:text-emerald-700 dark:hover:text-emerald-400">
@@ -153,7 +144,7 @@ export function MarketingShell({ children }: { children: React.ReactNode }) {
               className="hidden md:inline-flex items-center gap-1.5 rounded-xl bg-emerald-700 px-3.5 py-1.5 text-xs font-bold text-white shadow transition hover:bg-emerald-800 hover:scale-[1.02] dark:bg-emerald-600 dark:hover:bg-emerald-500"
             >
               <GraduationCap className="h-3.5 w-3.5 text-amber-300" />
-              {lang === 'bn' ? 'ভর্তি / নিবন্ধন' : 'Admission / Apply'}
+              {lang === 'bn' ? 'ভর্তি / আবেদন' : 'Admission / Apply'}
             </Link>
 
             {/* Mobile menu toggle */}
@@ -214,7 +205,7 @@ export function MarketingShell({ children }: { children: React.ReactNode }) {
                 className="flex items-center justify-center gap-2 rounded-xl bg-emerald-700 py-2 text-xs font-bold text-white dark:bg-emerald-600"
               >
                 <GraduationCap className="h-4 w-4 text-amber-300" />
-                ভর্তি / নিবন্ধন
+                ভর্তি / আবেদন
               </Link>
             </div>
           </div>
@@ -229,19 +220,18 @@ export function MarketingShell({ children }: { children: React.ReactNode }) {
         <div className="container mx-auto px-4 py-12 sm:px-6">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
             <div className="space-y-4">
-              <div className="relative h-12 w-36 brightness-0 invert opacity-95">
-                <Image
-                  src="/logo.png"
-                  alt="MIC Smart Campus"
-                  fill
-                  className="object-contain"
-                />
-              </div>
+              <CampusLogo darkSurface size="md" subtitle="Smart Academic OS" />
               <p className="text-sm text-slate-400 leading-relaxed">
-                বাংলাদেশের স্কুল, কলেজ ও বিশ্ববিদ্যালয়সমূহের প্রাতিষ্ঠানিক ব্যবস্থাপনার জন্য সর্বাধুনিক ক্লাউড প্ল্যাটফর্ম।
+                CampusOS — বাংলাদেশের স্কুল, কলেজ ও বিশ্ববিদ্যালয়সমূহের প্রাতিষ্ঠানিক ব্যবস্থাপনার জন্য সর্বাধুনিক ক্লাউড অপারেটিং সিস্টেম। এন্ড্রয়েড মোবাইল APK এবং ওয়েব প্ল্যাটফর্ম সম্পূর্ণ রিয়েলটাইমে সিঙ্ক।
               </p>
-              <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-amber-400">
-                <span>শিখুন</span> • <span>যুক্ত হোন</span> • <span>এগিয়ে যান</span>
+              <div className="p-3 rounded-xl bg-slate-800/80 border border-slate-700/60 text-xs">
+                <p className="text-slate-400">সিস্টেম আর্কিটেক্ট ও স্রষ্টা:</p>
+                <p className="font-bold text-white mt-0.5 flex items-center gap-1.5">
+                  <span className="text-emerald-400">●</span> Antar Dasgupta
+                </p>
+                <p className="text-[11px] text-emerald-400/90 mt-1 font-mono">
+                  All Rights Reserved to Antar Dasgupta
+                </p>
               </div>
             </div>
 
@@ -249,7 +239,7 @@ export function MarketingShell({ children }: { children: React.ReactNode }) {
               <h3 className="text-sm font-semibold uppercase tracking-wider text-white">প্ল্যাটফর্ম মডিউল</h3>
               <ul className="mt-4 space-y-2 text-sm text-slate-400">
                 <li><Link className="hover:text-emerald-400" href="/#features">ক্লাস রুটিন ও শিডিউল</Link></li>
-                <li><Link className="hover:text-emerald-400" href="/#features">সার্ভার-ড্রিভেন ফ্লাটার অ্যাপ</Link></li>
+                <li><Link className="hover:text-emerald-400" href="/#features">সার্ভার-ড্রিভেন অ্যান্ড্রয়েড অ্যাপ</Link></li>
                 <li><Link className="hover:text-emerald-400" href="/#features">পরীক্ষা ও স্বয়ংক্রিয় GPA</Link></li>
                 <li><Link className="hover:text-emerald-400" href="/#features">ফি ম্যানেজমেন্ট ও ইনভয়েস</Link></li>
                 <li><Link className="hover:text-emerald-400" href="/#features">কঠোর মাল্টি-টেন্যান্ট আইসোলেশন</Link></li>
@@ -280,18 +270,18 @@ export function MarketingShell({ children }: { children: React.ReactNode }) {
                 </li>
                 <li className="flex items-center gap-2">
                   <Mail className="h-4 w-4 text-emerald-400 shrink-0" />
-                  <span>support@mic-campus.edu.bd</span>
+                  <span>support@campusos.edu</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Shield className="h-4 w-4 text-amber-400 shrink-0" />
-                  <span>Row Level Security (RLS) সক্রিয়</span>
+                  <span>Supabase Row Level Security (RLS) সক্রিয়</span>
                 </li>
               </ul>
             </div>
           </div>
 
           <div className="mt-12 border-t border-slate-800 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500">
-            <p>© {new Date().getFullYear()} এমআইসি স্মার্ট ক্যাম্পাস. সর্বস্বত্ব সংরক্ষিত।</p>
+            <p>© {new Date().getFullYear()} CampusOS. All Rights Reserved to Antar Dasgupta.</p>
             <div className="flex gap-6 mt-4 sm:mt-0">
               <Link className="hover:text-slate-300" href="/privacy">গোপনীয়তা নীতি</Link>
               <Link className="hover:text-slate-300" href="/terms">ব্যবহারের শর্তাবলী</Link>

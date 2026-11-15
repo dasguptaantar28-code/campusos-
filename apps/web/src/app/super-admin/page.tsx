@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import { CampusLogo } from '@/components/brand/campusos-logo';
 import { useRouter } from 'next/navigation';
 import {
   LayoutDashboard,
@@ -182,7 +182,7 @@ export default function SuperAdminPage() {
           full_name: `Mahir Faysal #${randomNum}`,
           email: `mahir.faysal${randomNum}@gmail.com`,
           phone: '+8801711223344',
-          institution_name: 'MIC Smart University',
+          institution_name: 'Metropolitan University of Technology & Science',
           role: 'student',
           source: 'mobile_apk',
           notes: 'Submitted live from Android Mobile APK',
@@ -232,6 +232,8 @@ export default function SuperAdminPage() {
 
   const handleSignOut = () => {
     if (typeof window !== 'undefined') {
+      localStorage.removeItem('campusos_logged_in_email');
+      localStorage.removeItem('campusos_logged_in_role');
       localStorage.removeItem('mic_logged_in_email');
       localStorage.removeItem('mic_logged_in_role');
     }
@@ -254,15 +256,7 @@ export default function SuperAdminPage() {
       {/* Top Header */}
       <header className="bg-slate-900 text-white px-6 py-4 flex items-center justify-between border-b border-slate-800 shadow-md sticky top-0 z-30">
         <div className="flex items-center gap-4">
-          <Link href="/" className="relative h-10 w-32 brightness-0 invert">
-            <Image
-              src="/logo.png"
-              alt="MIC Smart Campus"
-              fill
-              priority
-              className="object-contain"
-            />
-          </Link>
+          <CampusLogo href="/" darkSurface size="sm" />
           <span className="hidden sm:inline-block h-6 w-px bg-slate-700" />
           <div className="hidden sm:flex items-center gap-2 text-xs">
             <span className="font-bold text-white">Super Admin Control Plane</span>
@@ -676,9 +670,9 @@ export default function SuperAdminPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {[
-                { name: 'MIC Smart University', code: 'mic-university', type: 'University', students: 1420 },
-                { name: 'MIC Model College', code: 'mic-college', type: 'College', students: 860 },
-                { name: 'MIC International School', code: 'mic-school', type: 'School', students: 540 },
+                { name: 'Green Valley Smart Model School', code: 'inst-school', type: 'School', students: 800 },
+                { name: 'Crescent Model Higher Secondary College', code: 'inst-college', type: 'College', students: 160 },
+                { name: 'Metropolitan University of Technology & Science', code: 'inst-university', type: 'University', students: 320 },
               ].map((inst) => (
                 <div
                   key={inst.code}
@@ -779,7 +773,7 @@ export default function SuperAdminPage() {
                 style={{ backgroundColor: primaryColor }}
               >
                 <div className="flex items-center justify-between text-xs">
-                  <span className="font-bold">MIC Smart Campus</span>
+                  <span className="font-bold">CampusOS</span>
                   <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
                 </div>
                 <div className="bg-white/10 p-3 rounded-2xl text-xs space-y-1">

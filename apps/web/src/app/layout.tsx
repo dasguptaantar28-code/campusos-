@@ -3,12 +3,12 @@ import { ThemeProvider } from '@/components/providers/theme-provider';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'MIC Smart Campus — Learn • Connect • Grow',
+  title: 'CampusOS — Enterprise Smart Campus Operating System | Creator: Antar Dasgupta',
   description:
-    'Enterprise-grade multi-tenant academic management platform for schools, colleges, and universities with server-driven mobile Android APK and Supabase PostgreSQL integration.',
+    'CampusOS — Enterprise-grade multi-tenant academic management platform for schools, colleges, and universities with synchronized Android APK and PostgreSQL Supabase integration. Architected by Antar Dasgupta. All Rights Reserved.',
   icons: {
-    icon: '/logo.png',
-    apple: '/logo.png',
+    icon: '/brand/campusos-logo.jpg',
+    apple: '/brand/campusos-logo.jpg',
   },
 };
 
