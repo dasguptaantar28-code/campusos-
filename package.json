@@ -1,0 +1,19 @@
+{
+  "name": "campusos",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CampusOS — Enterprise Multi-Tenant School Management SaaS Platform",
+  "workspaces": [
+    "apps/web",
+    "tests"
+  ],
+  "scripts": {
+    "dev:web": "npm --workspace=apps/web run dev",
+    "build:web": "npm --workspace=apps/web run build",
+    "lint:web": "npm --workspace=apps/web run lint",
+    "typecheck:web": "npm --workspace=apps/web run typecheck",
+    "test:db": "npm --workspace=tests run test:db",
+    "test:security": "npm --workspace=tests run test:security",
+    "test": "npm --workspace=tests run test"
+  }
+}

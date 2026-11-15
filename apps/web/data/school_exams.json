@@ -1,0 +1,912 @@
+{
+  "inst-school - Class 1": [
+    {
+      "id": "ex-sch-1-1",
+      "title": "Midterm Examination - Mathematics",
+      "startDate": "28 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 101",
+      "status": "Scheduled",
+      "className": "Class 1",
+      "subjectCode": "MTH-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-1-2",
+      "title": "Midterm Examination - Science",
+      "startDate": "30 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 101",
+      "status": "Scheduled",
+      "className": "Class 1",
+      "subjectCode": "SCI-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-1-3",
+      "title": "Midterm Examination - English",
+      "startDate": "02 Dec 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 101",
+      "status": "Scheduled",
+      "className": "Class 1",
+      "subjectCode": "ENG-101",
+      "institutionId": "inst-school"
+    }
+  ],
+  "Class 1": [
+    {
+      "id": "ex-sch-1-1",
+      "title": "Midterm Examination - Mathematics",
+      "startDate": "28 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 101",
+      "status": "Scheduled",
+      "className": "Class 1",
+      "subjectCode": "MTH-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-1-2",
+      "title": "Midterm Examination - Science",
+      "startDate": "30 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 101",
+      "status": "Scheduled",
+      "className": "Class 1",
+      "subjectCode": "SCI-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-1-3",
+      "title": "Midterm Examination - English",
+      "startDate": "02 Dec 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 101",
+      "status": "Scheduled",
+      "className": "Class 1",
+      "subjectCode": "ENG-101",
+      "institutionId": "inst-school"
+    }
+  ],
+  "inst-school - Class 2": [
+    {
+      "id": "ex-sch-2-1",
+      "title": "Midterm Examination - Mathematics",
+      "startDate": "28 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 102",
+      "status": "Scheduled",
+      "className": "Class 2",
+      "subjectCode": "MTH-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-2-2",
+      "title": "Midterm Examination - Science",
+      "startDate": "30 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 102",
+      "status": "Scheduled",
+      "className": "Class 2",
+      "subjectCode": "SCI-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-2-3",
+      "title": "Midterm Examination - English",
+      "startDate": "02 Dec 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 102",
+      "status": "Scheduled",
+      "className": "Class 2",
+      "subjectCode": "ENG-101",
+      "institutionId": "inst-school"
+    }
+  ],
+  "Class 2": [
+    {
+      "id": "ex-sch-2-1",
+      "title": "Midterm Examination - Mathematics",
+      "startDate": "28 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 102",
+      "status": "Scheduled",
+      "className": "Class 2",
+      "subjectCode": "MTH-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-2-2",
+      "title": "Midterm Examination - Science",
+      "startDate": "30 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 102",
+      "status": "Scheduled",
+      "className": "Class 2",
+      "subjectCode": "SCI-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-2-3",
+      "title": "Midterm Examination - English",
+      "startDate": "02 Dec 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 102",
+      "status": "Scheduled",
+      "className": "Class 2",
+      "subjectCode": "ENG-101",
+      "institutionId": "inst-school"
+    }
+  ],
+  "inst-school - Class 3": [
+    {
+      "id": "ex-sch-3-1",
+      "title": "Midterm Examination - Mathematics",
+      "startDate": "28 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 103",
+      "status": "Scheduled",
+      "className": "Class 3",
+      "subjectCode": "MTH-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-3-2",
+      "title": "Midterm Examination - Science",
+      "startDate": "30 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 103",
+      "status": "Scheduled",
+      "className": "Class 3",
+      "subjectCode": "SCI-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-3-3",
+      "title": "Midterm Examination - English",
+      "startDate": "02 Dec 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 103",
+      "status": "Scheduled",
+      "className": "Class 3",
+      "subjectCode": "ENG-101",
+      "institutionId": "inst-school"
+    }
+  ],
+  "Class 3": [
+    {
+      "id": "ex-sch-3-1",
+      "title": "Midterm Examination - Mathematics",
+      "startDate": "28 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 103",
+      "status": "Scheduled",
+      "className": "Class 3",
+      "subjectCode": "MTH-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-3-2",
+      "title": "Midterm Examination - Science",
+      "startDate": "30 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 103",
+      "status": "Scheduled",
+      "className": "Class 3",
+      "subjectCode": "SCI-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-3-3",
+      "title": "Midterm Examination - English",
+      "startDate": "02 Dec 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 103",
+      "status": "Scheduled",
+      "className": "Class 3",
+      "subjectCode": "ENG-101",
+      "institutionId": "inst-school"
+    }
+  ],
+  "inst-school - Class 4": [
+    {
+      "id": "ex-sch-4-1",
+      "title": "Midterm Examination - Mathematics",
+      "startDate": "28 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 104",
+      "status": "Scheduled",
+      "className": "Class 4",
+      "subjectCode": "MTH-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-4-2",
+      "title": "Midterm Examination - Science",
+      "startDate": "30 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 104",
+      "status": "Scheduled",
+      "className": "Class 4",
+      "subjectCode": "SCI-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-4-3",
+      "title": "Midterm Examination - English",
+      "startDate": "02 Dec 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 104",
+      "status": "Scheduled",
+      "className": "Class 4",
+      "subjectCode": "ENG-101",
+      "institutionId": "inst-school"
+    }
+  ],
+  "Class 4": [
+    {
+      "id": "ex-sch-4-1",
+      "title": "Midterm Examination - Mathematics",
+      "startDate": "28 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 104",
+      "status": "Scheduled",
+      "className": "Class 4",
+      "subjectCode": "MTH-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-4-2",
+      "title": "Midterm Examination - Science",
+      "startDate": "30 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 104",
+      "status": "Scheduled",
+      "className": "Class 4",
+      "subjectCode": "SCI-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-4-3",
+      "title": "Midterm Examination - English",
+      "startDate": "02 Dec 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 104",
+      "status": "Scheduled",
+      "className": "Class 4",
+      "subjectCode": "ENG-101",
+      "institutionId": "inst-school"
+    }
+  ],
+  "inst-school - Class 5": [
+    {
+      "id": "ex-sch-5-1",
+      "title": "Midterm Examination - Mathematics",
+      "startDate": "28 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 105",
+      "status": "Scheduled",
+      "className": "Class 5",
+      "subjectCode": "MTH-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-5-2",
+      "title": "Midterm Examination - Science",
+      "startDate": "30 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 105",
+      "status": "Scheduled",
+      "className": "Class 5",
+      "subjectCode": "SCI-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-5-3",
+      "title": "Midterm Examination - English",
+      "startDate": "02 Dec 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 105",
+      "status": "Scheduled",
+      "className": "Class 5",
+      "subjectCode": "ENG-101",
+      "institutionId": "inst-school"
+    }
+  ],
+  "Class 5": [
+    {
+      "id": "ex-sch-5-1",
+      "title": "Midterm Examination - Mathematics",
+      "startDate": "28 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 105",
+      "status": "Scheduled",
+      "className": "Class 5",
+      "subjectCode": "MTH-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-5-2",
+      "title": "Midterm Examination - Science",
+      "startDate": "30 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 105",
+      "status": "Scheduled",
+      "className": "Class 5",
+      "subjectCode": "SCI-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-5-3",
+      "title": "Midterm Examination - English",
+      "startDate": "02 Dec 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 105",
+      "status": "Scheduled",
+      "className": "Class 5",
+      "subjectCode": "ENG-101",
+      "institutionId": "inst-school"
+    }
+  ],
+  "inst-school - Class 6": [
+    {
+      "id": "ex-sch-6-1",
+      "title": "Midterm Examination - Mathematics",
+      "startDate": "28 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 106",
+      "status": "Scheduled",
+      "className": "Class 6",
+      "subjectCode": "MTH-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-6-2",
+      "title": "Midterm Examination - Science",
+      "startDate": "30 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 106",
+      "status": "Scheduled",
+      "className": "Class 6",
+      "subjectCode": "SCI-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-6-3",
+      "title": "Midterm Examination - English",
+      "startDate": "02 Dec 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 106",
+      "status": "Scheduled",
+      "className": "Class 6",
+      "subjectCode": "ENG-101",
+      "institutionId": "inst-school"
+    }
+  ],
+  "Class 6": [
+    {
+      "id": "ex-sch-6-1",
+      "title": "Midterm Examination - Mathematics",
+      "startDate": "28 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 106",
+      "status": "Scheduled",
+      "className": "Class 6",
+      "subjectCode": "MTH-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-6-2",
+      "title": "Midterm Examination - Science",
+      "startDate": "30 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 106",
+      "status": "Scheduled",
+      "className": "Class 6",
+      "subjectCode": "SCI-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-6-3",
+      "title": "Midterm Examination - English",
+      "startDate": "02 Dec 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 106",
+      "status": "Scheduled",
+      "className": "Class 6",
+      "subjectCode": "ENG-101",
+      "institutionId": "inst-school"
+    }
+  ],
+  "inst-school - Class 7": [
+    {
+      "id": "ex-sch-7-1",
+      "title": "Midterm Examination - Mathematics",
+      "startDate": "28 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 107",
+      "status": "Scheduled",
+      "className": "Class 7",
+      "subjectCode": "MTH-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-7-2",
+      "title": "Midterm Examination - Science",
+      "startDate": "30 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 107",
+      "status": "Scheduled",
+      "className": "Class 7",
+      "subjectCode": "SCI-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-7-3",
+      "title": "Midterm Examination - English",
+      "startDate": "02 Dec 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 107",
+      "status": "Scheduled",
+      "className": "Class 7",
+      "subjectCode": "ENG-101",
+      "institutionId": "inst-school"
+    }
+  ],
+  "Class 7": [
+    {
+      "id": "ex-sch-7-1",
+      "title": "Midterm Examination - Mathematics",
+      "startDate": "28 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 107",
+      "status": "Scheduled",
+      "className": "Class 7",
+      "subjectCode": "MTH-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-7-2",
+      "title": "Midterm Examination - Science",
+      "startDate": "30 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 107",
+      "status": "Scheduled",
+      "className": "Class 7",
+      "subjectCode": "SCI-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-7-3",
+      "title": "Midterm Examination - English",
+      "startDate": "02 Dec 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 107",
+      "status": "Scheduled",
+      "className": "Class 7",
+      "subjectCode": "ENG-101",
+      "institutionId": "inst-school"
+    }
+  ],
+  "inst-school - Class 8": [
+    {
+      "id": "ex-sch-8-1",
+      "title": "Midterm Examination - Mathematics",
+      "startDate": "28 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 108",
+      "status": "Scheduled",
+      "className": "Class 8",
+      "subjectCode": "MTH-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-8-2",
+      "title": "Midterm Examination - Science",
+      "startDate": "30 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 108",
+      "status": "Scheduled",
+      "className": "Class 8",
+      "subjectCode": "SCI-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-8-3",
+      "title": "Midterm Examination - English",
+      "startDate": "02 Dec 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 108",
+      "status": "Scheduled",
+      "className": "Class 8",
+      "subjectCode": "ENG-101",
+      "institutionId": "inst-school"
+    }
+  ],
+  "Class 8": [
+    {
+      "id": "ex-sch-8-1",
+      "title": "Midterm Examination - Mathematics",
+      "startDate": "28 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 108",
+      "status": "Scheduled",
+      "className": "Class 8",
+      "subjectCode": "MTH-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-8-2",
+      "title": "Midterm Examination - Science",
+      "startDate": "30 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 108",
+      "status": "Scheduled",
+      "className": "Class 8",
+      "subjectCode": "SCI-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-8-3",
+      "title": "Midterm Examination - English",
+      "startDate": "02 Dec 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 108",
+      "status": "Scheduled",
+      "className": "Class 8",
+      "subjectCode": "ENG-101",
+      "institutionId": "inst-school"
+    }
+  ],
+  "inst-school - Class 9": [
+    {
+      "id": "ex-sch-9-1",
+      "title": "Midterm Examination - Mathematics",
+      "startDate": "28 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 109",
+      "status": "Scheduled",
+      "className": "Class 9",
+      "subjectCode": "MTH-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-9-2",
+      "title": "Midterm Examination - Science",
+      "startDate": "30 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 109",
+      "status": "Scheduled",
+      "className": "Class 9",
+      "subjectCode": "SCI-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-9-3",
+      "title": "Midterm Examination - English",
+      "startDate": "02 Dec 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 109",
+      "status": "Scheduled",
+      "className": "Class 9",
+      "subjectCode": "ENG-101",
+      "institutionId": "inst-school"
+    }
+  ],
+  "Class 9": [
+    {
+      "id": "ex-sch-9-1",
+      "title": "Midterm Examination - Mathematics",
+      "startDate": "28 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 109",
+      "status": "Scheduled",
+      "className": "Class 9",
+      "subjectCode": "MTH-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-9-2",
+      "title": "Midterm Examination - Science",
+      "startDate": "30 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 109",
+      "status": "Scheduled",
+      "className": "Class 9",
+      "subjectCode": "SCI-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-9-3",
+      "title": "Midterm Examination - English",
+      "startDate": "02 Dec 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 109",
+      "status": "Scheduled",
+      "className": "Class 9",
+      "subjectCode": "ENG-101",
+      "institutionId": "inst-school"
+    }
+  ],
+  "inst-school - Class 10": [
+    {
+      "id": "ex-sch-10-1",
+      "title": "Midterm Examination - Mathematics",
+      "startDate": "28 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 110",
+      "status": "Scheduled",
+      "className": "Class 10",
+      "subjectCode": "MTH-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-10-2",
+      "title": "Midterm Examination - Science",
+      "startDate": "30 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 110",
+      "status": "Scheduled",
+      "className": "Class 10",
+      "subjectCode": "SCI-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-10-3",
+      "title": "Midterm Examination - English",
+      "startDate": "02 Dec 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 110",
+      "status": "Scheduled",
+      "className": "Class 10",
+      "subjectCode": "ENG-101",
+      "institutionId": "inst-school"
+    }
+  ],
+  "Class 10": [
+    {
+      "id": "ex-sch-10-1",
+      "title": "Midterm Examination - Mathematics",
+      "startDate": "28 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 110",
+      "status": "Scheduled",
+      "className": "Class 10",
+      "subjectCode": "MTH-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-10-2",
+      "title": "Midterm Examination - Science",
+      "startDate": "30 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 110",
+      "status": "Scheduled",
+      "className": "Class 10",
+      "subjectCode": "SCI-101",
+      "institutionId": "inst-school"
+    },
+    {
+      "id": "ex-sch-10-3",
+      "title": "Midterm Examination - English",
+      "startDate": "02 Dec 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Hall 110",
+      "status": "Scheduled",
+      "className": "Class 10",
+      "subjectCode": "ENG-101",
+      "institutionId": "inst-school"
+    }
+  ],
+  "inst-college - Class 11 (HSC 1st Year)": [
+    {
+      "id": "ex-col-0-1",
+      "title": "HSC Pre-Test - Physics / Accounting / Economics",
+      "startDate": "28 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "College Auditorium Hall 1",
+      "status": "Scheduled",
+      "className": "Class 11 (HSC 1st Year)",
+      "subjectCode": "HSC-301",
+      "institutionId": "inst-college"
+    },
+    {
+      "id": "ex-col-0-2",
+      "title": "HSC Pre-Test - Chemistry / Business / Civics",
+      "startDate": "30 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "College Auditorium Hall 1",
+      "status": "Scheduled",
+      "className": "Class 11 (HSC 1st Year)",
+      "subjectCode": "HSC-302",
+      "institutionId": "inst-college"
+    },
+    {
+      "id": "ex-col-0-3",
+      "title": "HSC Pre-Test - Higher Math / Finance / History",
+      "startDate": "02 Dec 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "College Auditorium Hall 1",
+      "status": "Scheduled",
+      "className": "Class 11 (HSC 1st Year)",
+      "subjectCode": "HSC-303",
+      "institutionId": "inst-college"
+    }
+  ],
+  "inst-college - Class 12 (HSC 2nd Year)": [
+    {
+      "id": "ex-col-1-1",
+      "title": "HSC Pre-Test - Physics / Accounting / Economics",
+      "startDate": "28 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "College Auditorium Hall 1",
+      "status": "Scheduled",
+      "className": "Class 12 (HSC 2nd Year)",
+      "subjectCode": "HSC-301",
+      "institutionId": "inst-college"
+    },
+    {
+      "id": "ex-col-1-2",
+      "title": "HSC Pre-Test - Chemistry / Business / Civics",
+      "startDate": "30 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "College Auditorium Hall 1",
+      "status": "Scheduled",
+      "className": "Class 12 (HSC 2nd Year)",
+      "subjectCode": "HSC-302",
+      "institutionId": "inst-college"
+    },
+    {
+      "id": "ex-col-1-3",
+      "title": "HSC Pre-Test - Higher Math / Finance / History",
+      "startDate": "02 Dec 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "College Auditorium Hall 1",
+      "status": "Scheduled",
+      "className": "Class 12 (HSC 2nd Year)",
+      "subjectCode": "HSC-303",
+      "institutionId": "inst-college"
+    }
+  ],
+  "inst-university - Dept of CSE": [
+    {
+      "id": "ex-uni-0-1",
+      "title": "Semester Final Exam - Core Major Course 1",
+      "startDate": "28 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Exam Hall Complex 402",
+      "status": "Scheduled",
+      "className": "Dept of CSE",
+      "subjectCode": "UNI-401",
+      "institutionId": "inst-university"
+    },
+    {
+      "id": "ex-uni-0-2",
+      "title": "Semester Final Exam - Core Major Course 2",
+      "startDate": "30 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Exam Hall Complex 404",
+      "status": "Scheduled",
+      "className": "Dept of CSE",
+      "subjectCode": "UNI-402",
+      "institutionId": "inst-university"
+    },
+    {
+      "id": "ex-uni-0-3",
+      "title": "Semester Final Exam - Elective / Lab Practical",
+      "startDate": "02 Dec 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Science Complex Lab 102",
+      "status": "Scheduled",
+      "className": "Dept of CSE",
+      "subjectCode": "UNI-403",
+      "institutionId": "inst-university"
+    }
+  ],
+  "inst-university - Dept of EEE": [
+    {
+      "id": "ex-uni-1-1",
+      "title": "Semester Final Exam - Core Major Course 1",
+      "startDate": "28 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Exam Hall Complex 402",
+      "status": "Scheduled",
+      "className": "Dept of EEE",
+      "subjectCode": "UNI-401",
+      "institutionId": "inst-university"
+    },
+    {
+      "id": "ex-uni-1-2",
+      "title": "Semester Final Exam - Core Major Course 2",
+      "startDate": "30 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Exam Hall Complex 404",
+      "status": "Scheduled",
+      "className": "Dept of EEE",
+      "subjectCode": "UNI-402",
+      "institutionId": "inst-university"
+    },
+    {
+      "id": "ex-uni-1-3",
+      "title": "Semester Final Exam - Elective / Lab Practical",
+      "startDate": "02 Dec 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Science Complex Lab 102",
+      "status": "Scheduled",
+      "className": "Dept of EEE",
+      "subjectCode": "UNI-403",
+      "institutionId": "inst-university"
+    }
+  ],
+  "inst-university - Dept of BBA": [
+    {
+      "id": "ex-uni-2-1",
+      "title": "Semester Final Exam - Core Major Course 1",
+      "startDate": "28 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Exam Hall Complex 402",
+      "status": "Scheduled",
+      "className": "Dept of BBA",
+      "subjectCode": "UNI-401",
+      "institutionId": "inst-university"
+    },
+    {
+      "id": "ex-uni-2-2",
+      "title": "Semester Final Exam - Core Major Course 2",
+      "startDate": "30 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Exam Hall Complex 404",
+      "status": "Scheduled",
+      "className": "Dept of BBA",
+      "subjectCode": "UNI-402",
+      "institutionId": "inst-university"
+    },
+    {
+      "id": "ex-uni-2-3",
+      "title": "Semester Final Exam - Elective / Lab Practical",
+      "startDate": "02 Dec 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Science Complex Lab 102",
+      "status": "Scheduled",
+      "className": "Dept of BBA",
+      "subjectCode": "UNI-403",
+      "institutionId": "inst-university"
+    }
+  ],
+  "inst-university - Dept of English": [
+    {
+      "id": "ex-uni-3-1",
+      "title": "Semester Final Exam - Core Major Course 1",
+      "startDate": "28 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Exam Hall Complex 402",
+      "status": "Scheduled",
+      "className": "Dept of English",
+      "subjectCode": "UNI-401",
+      "institutionId": "inst-university"
+    },
+    {
+      "id": "ex-uni-3-2",
+      "title": "Semester Final Exam - Core Major Course 2",
+      "startDate": "30 Nov 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Exam Hall Complex 404",
+      "status": "Scheduled",
+      "className": "Dept of English",
+      "subjectCode": "UNI-402",
+      "institutionId": "inst-university"
+    },
+    {
+      "id": "ex-uni-3-3",
+      "title": "Semester Final Exam - Elective / Lab Practical",
+      "startDate": "02 Dec 2026",
+      "time": "10:00 AM - 01:00 PM",
+      "room": "Science Complex Lab 102",
+      "status": "Scheduled",
+      "className": "Dept of English",
+      "subjectCode": "UNI-403",
+      "institutionId": "inst-university"
+    }
+  ]
+}

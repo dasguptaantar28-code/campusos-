@@ -1,0 +1,50 @@
+project_id = "campusos"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "storage", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+shadow_port = 54320
+major_version = 15
+
+[studio]
+enabled = true
+port = 54323
+
+[auth]
+enabled = true
+site_url = "http://localhost:3000"
+additional_redirect_urls = ["https://localhost:3000", "campusos://auth-callback"]
+jwt_expiry = 3600
+enable_refresh_token_rotation = true
+enable_signup = true
+
+[storage]
+enabled = true
+file_size_limit = "50MiB"
+
+[functions.resolve-config]
+verify_jwt = true
+
+[functions.remote-control]
+verify_jwt = true
+
+[functions.send-notification]
+verify_jwt = true
+
+[functions.create-payment-intent]
+verify_jwt = true
+
+[functions.payment-webhook]
+verify_jwt = false
+
+[functions.bulk-student-import]
+verify_jwt = true
+
+[functions.revoke-session]
+verify_jwt = true

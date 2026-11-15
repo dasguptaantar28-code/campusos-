@@ -1,0 +1,25 @@
+import type { NavItemSpec } from '@/components/layout/dashboard-shell';
+
+export const SUPER_ADMIN_NAV_ITEMS: NavItemSpec[] = [
+  { id: 'overview', label: 'Overview', href: '/super-admin', icon: 'LayoutDashboard' },
+  { id: 'tenants', label: 'Tenant Management', href: '/super-admin/tenants', icon: 'Building2' },
+  { id: 'schools', label: 'School Management', href: '/super-admin/schools', icon: 'School' },
+  { id: 'users', label: 'User Management', href: '/super-admin/users', icon: 'Users' },
+  { id: 'plans', label: 'Subscription Plans', href: '/super-admin/plans', icon: 'CreditCard' },
+  { id: 'billing', label: 'Billing & Payments', href: '/super-admin/billing', icon: 'Receipt' },
+  { id: 'modules', label: 'Global Modules', href: '/super-admin/modules', icon: 'Layers' },
+  { id: 'features', label: 'Feature Management', href: '/super-admin/features', icon: 'ToggleRight' },
+  { id: 'remote-config', label: 'Remote Configuration', href: '/super-admin/remote-config', icon: 'Sliders', badge: 'LIVE' },
+  { id: 'roles', label: 'Role Management', href: '/super-admin/roles', icon: 'UserCheck' },
+  { id: 'permissions', label: 'Permission Management', href: '/super-admin/permissions', icon: 'KeyRound' },
+  { id: 'notifications', label: 'Notifications', href: '/super-admin/notifications', icon: 'Bell' },
+  { id: 'analytics', label: 'Analytics', href: '/super-admin/analytics', icon: 'BarChart3' },
+  { id: 'monitoring', label: 'System Monitoring', href: '/super-admin/monitoring', icon: 'Activity' },
+  { id: 'devices', label: 'Device Management', href: '/super-admin/devices', icon: 'Smartphone' },
+  { id: 'security', label: 'Security Center', href: '/super-admin/security', icon: 'ShieldCheck' },
+  { id: 'audit-logs', label: 'Audit Logs', href: '/super-admin/audit-logs', icon: 'ScrollText' },
+  { id: 'integrations', label: 'API Integrations', href: '/super-admin/integrations', icon: 'Plug' },
+  { id: 'support', label: 'Support Tickets', href: '/super-admin/support', icon: 'LifeBuoy' },
+  { id: 'backups', label: 'Backup Management', href: '/super-admin/backups', icon: 'DatabaseBackup' },
+  { id: 'settings', label: 'Global Settings', href: '/super-admin/settings', icon: 'Settings' },
+];

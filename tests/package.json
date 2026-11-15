@@ -1,0 +1,15 @@
+{
+  "name": "@campusos/tests",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test:db": "vitest run database.test.ts",
+    "test:security": "vitest run security-and-acceptance.test.ts",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.2.17",
+    "vitest": "^3.1.3"
+  }
+}
